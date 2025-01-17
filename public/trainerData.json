@@ -1,0 +1,170 @@
+[
+  {
+    "_id": "1",
+    "name": "John Doe",
+    "profileImage": "https://i.ibb.co.com/WFP6L23/trainer9.jpg",
+    "yearsOfExperience": 8,
+    "socialIcons": {
+      "facebook": "https://facebook.com/johndoe",
+      "twitter": "https://twitter.com/johndoe",
+      "instagram": "https://instagram.com/johndoe",
+      "linkedin": "https://linkedin.com/in/johndoe"
+    },
+    "availableSlots": [
+      "Monday 8AM-10AM",
+      "Wednesday 2PM-4PM",
+      "Friday 6PM-8PM"
+    ],
+    "details": "John is a professional strength and conditioning coach with a passion for helping clients achieve their fitness goals.",
+    "expertise": "Strength Training, Cardio Workouts, Nutrition",
+    "qualifications": "Certified Personal Trainer, Nutrition Specialist"
+  },
+  {
+    "_id": "2",
+    "name": "Jane Smith",
+    "profileImage": "https://i.ibb.co.com/mrnNdWN/trainer8.jpg",
+    "yearsOfExperience": 5,
+    "socialIcons": {
+      "facebook": "https://facebook.com/janesmith",
+      "twitter": "https://twitter.com/janesmith",
+      "instagram": "https://instagram.com/janesmith",
+      "linkedin": "https://linkedin.com/in/janesmith"
+    },
+    "availableSlots": ["Tuesday 10AM-12PM", "Thursday 4PM-6PM"],
+    "details": "Jane specializes in yoga and meditation to help individuals find their inner peace and physical flexibility.",
+    "expertise": "Yoga, Meditation, Flexibility Training",
+    "qualifications": "Registered Yoga Teacher (RYT), Mindfulness Coach"
+  },
+  {
+    "_id": "3",
+    "name": "Michael Johnson",
+    "profileImage": "https://i.ibb.co.com/gmkjsqM/trainer7.jpg",
+    "yearsOfExperience": 10,
+    "socialIcons": {
+      "facebook": "https://facebook.com/michaeljohnson",
+      "twitter": "https://twitter.com/michaeljohnson",
+      "instagram": "https://instagram.com/michaeljohnson",
+      "linkedin": "https://linkedin.com/in/michaeljohnson"
+    },
+    "availableSlots": [
+      "Monday 2PM-4PM",
+      "Wednesday 6PM-8PM",
+      "Saturday 8AM-10AM"
+    ],
+    "details": "Michael is a high-performance trainer focused on sports-specific training and endurance.",
+    "expertise": "HIIT, Sports Training, Endurance",
+    "qualifications": "Certified Strength and Conditioning Specialist (CSCS)"
+  },
+  {
+    "_id": "4",
+    "name": "Sophia Brown",
+    "profileImage": "https://i.ibb.co.com/6wBhb1c/trainer4.jpg",
+    "yearsOfExperience": 7,
+    "socialIcons": {
+      "facebook": "https://facebook.com/sophiabrown",
+      "twitter": "https://twitter.com/sophiabrown",
+      "instagram": "https://instagram.com/sophiabrown",
+      "linkedin": "https://linkedin.com/in/sophiabrown"
+    },
+    "availableSlots": ["Tuesday 8AM-10AM", "Friday 4PM-6PM"],
+    "details": "Sophia is a fitness trainer dedicated to helping clients develop personalized fitness plans.",
+    "expertise": "Weight Loss, Functional Training, Cardio",
+    "qualifications": "Certified Fitness Instructor"
+  },
+  {
+    "_id": "5",
+    "name": "Liam Davis",
+    "profileImage": "https://i.ibb.co.com/YZYd1gj/trainer5.jpg",
+    "yearsOfExperience": 4,
+    "socialIcons": {
+      "facebook": "https://facebook.com/liamdavis",
+      "twitter": "https://twitter.com/liamdavis",
+      "instagram": "https://instagram.com/liamdavis",
+      "linkedin": "https://linkedin.com/in/liamdavis"
+    },
+    "availableSlots": ["Monday 6AM-8AM", "Thursday 2PM-4PM"],
+    "details": "Liam is passionate about improving mental and physical health through fitness.",
+    "expertise": "CrossFit, Mindfulness, Core Strength",
+    "qualifications": "CrossFit Level 1 Trainer, Wellness Coach"
+  },
+  {
+    "_id": "6",
+    "name": "Emma Wilson",
+    "profileImage": "https://i.ibb.co.com/5h8xZJd/trainer6.jpg",
+    "yearsOfExperience": 6,
+    "socialIcons": {
+      "facebook": "https://facebook.com/emmawilson",
+      "twitter": "https://twitter.com/emmawilson",
+      "instagram": "https://instagram.com/emmawilson",
+      "linkedin": "https://linkedin.com/in/emmawilson"
+    },
+    "availableSlots": ["Wednesday 10AM-12PM", "Saturday 2PM-4PM"],
+    "details": "Emma focuses on empowering women through fitness and holistic wellness.",
+    "expertise": "Women’s Fitness, Pilates, Body Sculpting",
+    "qualifications": "Certified Pilates Instructor, Nutritionist"
+  },
+  {
+    "_id": "7",
+    "name": "Olivia Martinez",
+    "profileImage": "https://i.ibb.co.com/xJGCt1N/trainer10.jpg",
+    "yearsOfExperience": 9,
+    "socialIcons": {
+      "facebook": "https://facebook.com/oliviamartinez",
+      "twitter": "https://twitter.com/oliviamartinez",
+      "instagram": "https://instagram.com/oliviamartinez",
+      "linkedin": "https://linkedin.com/in/oliviamartinez"
+    },
+    "availableSlots": ["Tuesday 6AM-8AM", "Friday 8AM-10AM"],
+    "details": "Olivia is an experienced trainer specializing in rehabilitation and functional movement.",
+    "expertise": "Rehabilitation, Functional Fitness, Mobility",
+    "qualifications": "Physical Therapist, Certified Functional Trainer"
+  },
+  {
+    "_id": "8",
+    "name": "James Lee",
+    "profileImage": "https://i.ibb.co.com/CMbcsG7/trainer3.jpg",
+    "yearsOfExperience": 3,
+    "socialIcons": {
+      "facebook": "https://facebook.com/jameslee",
+      "twitter": "https://twitter.com/jameslee",
+      "instagram": "https://instagram.com/jameslee",
+      "linkedin": "https://linkedin.com/in/jameslee"
+    },
+    "availableSlots": ["Monday 4PM-6PM", "Thursday 8AM-10AM"],
+    "details": "James is a fitness enthusiast with a knack for creating fun and engaging workout routines.",
+    "expertise": "Group Fitness, Strength Training, Cardio",
+    "qualifications": "Certified Group Fitness Instructor"
+  },
+  {
+    "_id": "9",
+    "name": "Sophia Green",
+    "profileImage": "https://i.ibb.co.com/ScnLk9j/trainer2.jpg",
+    "yearsOfExperience": 11,
+    "socialIcons": {
+      "facebook": "https://facebook.com/sophiagreen",
+      "twitter": "https://twitter.com/sophiagreen",
+      "instagram": "https://instagram.com/sophiagreen",
+      "linkedin": "https://linkedin.com/in/sophiagreen"
+    },
+    "availableSlots": ["Monday 10AM-12PM", "Friday 6PM-8PM"],
+    "details": "Sophia is an expert in mental wellness and fitness for all age groups.",
+    "expertise": "Yoga, Meditation, Stress Management",
+    "qualifications": "Yoga Alliance Certified Instructor, Life Coach"
+  },
+  {
+    "_id": "10",
+    "name": "David Rodriguez",
+    "profileImage": "https://i.ibb.co.com/8NNXsFp/trainer1.jpg",
+    "yearsOfExperience": 12,
+    "socialIcons": {
+      "facebook": "https://facebook.com/davidrodriguez",
+      "twitter": "https://twitter.com/davidrodriguez",
+      "instagram": "https://instagram.com/davidrodriguez",
+      "linkedin": "https://linkedin.com/in/davidrodriguez"
+    },
+    "availableSlots": ["Wednesday 2PM-4PM", "Saturday 8AM-10AM"],
+    "details": "David is a veteran trainer specializing in advanced fitness programs for athletes.",
+    "expertise": "Athletic Training, Strength Conditioning, Nutrition",
+    "qualifications": "Certified Athletic Trainer, Sports Nutritionist"
+  }
+]
