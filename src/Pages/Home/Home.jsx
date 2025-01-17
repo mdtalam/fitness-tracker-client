@@ -2,7 +2,9 @@ import About from "./HomeComponent/About";
 import CommunityPost from "./HomeComponent/CommunityPost";
 import Featured from "./HomeComponent/Featured";
 import FeaturedClasses from "./HomeComponent/FeaturedClasses";
+import NewsLetter from "./HomeComponent/NewsLetter";
 import Slider from "./HomeComponent/Slider";
+import Team from "./HomeComponent/Team";
 import Testimonials from "./HomeComponent/Testimonials";
 
 
@@ -26,6 +28,12 @@ const Home = () => {
             </section>
             <section>
                 <CommunityPost></CommunityPost>
+            </section>
+            <section>
+                <NewsLetter></NewsLetter>
+            </section>
+            <section>
+                <Team></Team>
             </section>
         </div>
     );

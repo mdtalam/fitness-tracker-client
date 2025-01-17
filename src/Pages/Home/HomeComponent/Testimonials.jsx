@@ -64,7 +64,12 @@ const Testimonials = () => {
     <div className="bg-primary text-white py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-            <SectionTitle title={"Don’t just take our word for it"} subTitle={" Witness it first hand, directly from our lovely customers."}></SectionTitle>
+          <SectionTitle
+            title={"Don’t just take our word for it"}
+            subTitle={
+              " Witness it first hand, directly from our lovely customers."
+            }
+          ></SectionTitle>
         </div>
         {/* Swiper with autoplay and custom navigation */}
         <div className="relative">
@@ -93,7 +98,7 @@ const Testimonials = () => {
           >
             {reviews.map((review, index) => (
               <SwiperSlide key={index} className="flex justify-center">
-                <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 max-w-md">
+                <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 h-[250px] max-w-md">
                   <FaQuoteLeft className="text-4xl text-primary mb-4" />
                   <p className="mb-4">{review.text}</p>
                   <div className="flex items-center">
@@ -112,13 +117,15 @@ const Testimonials = () => {
             ))}
           </Swiper>
           {/* Navigation buttons at the bottom */}
-          <div className="flex justify-center mt-6 space-x-4">
-            <button className="swiper-button-prev text-white text-2xl">
-              <BsArrowLeftCircle />
-            </button>
-            <button className="swiper-button-next text-white text-2xl">
-              <BsArrowRightCircle />
-            </button>
+          <div className="hidden md:block">
+            <div className="flex justify-center mt-6 space-x-4">
+              <button className="swiper-button-prev text-white text-2xl">
+                <BsArrowLeftCircle />
+              </button>
+              <button className="swiper-button-next text-white text-2xl">
+                <BsArrowRightCircle />
+              </button>
+            </div>
           </div>
         </div>
         {/* <div className="text-center mt-8">

@@ -181,23 +181,27 @@ const NavMenu = () => {
         </div>
         <MobileNav open={openNav}>
           {navList}
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center justify-center gap-x-1">
+            <Link to="/login">
             <Button
               fullWidth
               variant="text"
               size="sm"
-              className="text-secondary hover:text-primary"
+              className="text-secondary bg-white hover:text-white"
             >
               <span>Log In</span>
             </Button>
+            </Link>
+            <Link to="/sign-up">
             <Button
               fullWidth
               variant="gradient"
               size="sm"
-              className="bg-secondary text-primary hover:bg-primary hover:text-secondary"
+              className="bg-secondary text-white hover:text-black"
             >
               <span>Sign Up</span>
             </Button>
+            </Link>
           </div>
         </MobileNav>
       </Navbar>
