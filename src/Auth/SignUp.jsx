@@ -1,11 +1,15 @@
 import Lottie from "lottie-react";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import lottiSignUp from "../../src/assets/signUp.json";
 
 const SignUp = () => {
   return (
     <div className="bg-gray-100">
+      <Helmet>
+        <title>FitFusion | Sign Up</title>
+      </Helmet>
       <div className="flex justify-center flex-col md:flex-row-reverse items-center min-h-screen bg-white py-10 gap-10">
         <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold text-center mb-6">Register</h2>
@@ -87,7 +91,10 @@ const SignUp = () => {
           <div className="mt-4 text-center">
             <p>
               Already have an account?{" "}
-              <Link to="/login" className="text-primary hover:underline focus:outline-none">
+              <Link
+                to="/login"
+                className="text-primary hover:underline focus:outline-none"
+              >
                 Login
               </Link>
             </p>

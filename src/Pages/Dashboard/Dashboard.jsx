@@ -1,11 +1,15 @@
-import React from 'react';
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
-    return (
-        <div>
-            dashboard
-        </div>
-    );
+  return (
+    <div>
+      <Helmet>
+        <title>FitFusion | DashBoard</title>
+      </Helmet>
+      dashboard
+    </div>
+  );
 };
 
 export default Dashboard;

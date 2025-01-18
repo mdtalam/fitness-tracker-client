@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const TrainerCard = ({ trainer }) => {
   return (
-    <div className="w-80 h-[420px] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+    <div className="w-full h-[420px] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
       {/* Profile Image Section */}
       <div className="relative h-48 flex items-center justify-center group">
         <div className="relative">

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import About from "./HomeComponent/About";
 import CommunityPost from "./HomeComponent/CommunityPost";
 import Featured from "./HomeComponent/Featured";
@@ -11,6 +12,11 @@ import Testimonials from "./HomeComponent/Testimonials";
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                <title>
+                FitFusion | Home
+                </title>
+            </Helmet>
             <section>
                 <Slider></Slider>
             </section>
