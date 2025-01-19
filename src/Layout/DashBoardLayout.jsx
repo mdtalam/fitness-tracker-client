@@ -1,6 +1,5 @@
 import {
   Bars3Icon,
-  Cog6ToothIcon,
   PowerIcon,
   XMarkIcon
 } from "@heroicons/react/24/solid";
@@ -14,6 +13,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
+import { FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { MdAccountBalance, MdGroupAdd } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
@@ -67,7 +67,9 @@ const DashboardLayout = () => {
             </ListItemPrefix>
             <Link
               to="allTrainer"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               All Trainer
             </Link>
@@ -78,18 +80,22 @@ const DashboardLayout = () => {
             </ListItemPrefix>
             <Link
               to="appliedTrainer"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               Applied Trainer
             </Link>
           </ListItem>
           <ListItem>
             <ListItemPrefix>
-            <MdAccountBalance className="h-5 w-5 text-secondary" />
+              <MdAccountBalance className="h-5 w-5 text-secondary" />
             </ListItemPrefix>
             <Link
               to="balance"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               Balance
             </Link>
@@ -104,11 +110,13 @@ const DashboardLayout = () => {
           </ListItem>
           <ListItem>
             <ListItemPrefix>
-            <SiGoogleclassroom className="h-5 w-5 text-secondary" />
+              <SiGoogleclassroom className="h-5 w-5 text-secondary" />
             </ListItemPrefix>
             <Link
               to="addClass"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               Add New Class
             </Link>
@@ -118,11 +126,13 @@ const DashboardLayout = () => {
 
           <ListItem>
             <ListItemPrefix>
-            <SiGoogleclassroom className="h-5 w-5 text-secondary" />
+              <SiGoogleclassroom className="h-5 w-5 text-secondary" />
             </ListItemPrefix>
             <Link
               to="addClass"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               Add New Class
             </Link>
@@ -132,29 +142,30 @@ const DashboardLayout = () => {
 
           <ListItem>
             <ListItemPrefix>
-            <SiGoogleclassroom className="h-5 w-5 text-secondary" />
+              <SiGoogleclassroom className="h-5 w-5 text-secondary" />
             </ListItemPrefix>
             <Link
               to="addClass"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               Add New Class
             </Link>
           </ListItem>
 
-
-
-
           <div className="my-4 border-t border-gray-300"></div>
           <ListItem>
             <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5 text-secondary" />
+              <FaHome className="h-5 w-5 text-secondary" />
             </ListItemPrefix>
             <Link
-              to="/settings"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              to="/"
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
-              Settings
+              Home
             </Link>
           </ListItem>
           <ListItem>
@@ -163,7 +174,9 @@ const DashboardLayout = () => {
             </ListItemPrefix>
             <Link
               to="/logout"
-              className={`text-secondary duration-300 ${open ? "block" : "hidden"}`}
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
             >
               Log Out
             </Link>

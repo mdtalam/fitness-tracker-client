@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { imageUpload } from "../../ImageAPI/utils";
 
 const AddClass = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [previewImage, setPreviewImage] = useState(null); // State to hold the preview image
 
   const handleImageChange = (e) => {
@@ -30,16 +33,23 @@ const AddClass = () => {
     };
 
     // Create class data object
-    const newClassData = {
+    const classData = {
       className,
       details,
       additionalInfo,
       image: imageURL,
       adminUser,
     };
-    console.table(newClassData);
+    console.table(classData);
     try{
-        
+        await axiosSecure.post('/classes', classData)
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Class Added Successfully!",
+            showConfirmButton: false,
+            timer: 1500
+          });
     }catch (err) {
         console.log(err)
     }
