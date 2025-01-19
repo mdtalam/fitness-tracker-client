@@ -3,13 +3,18 @@ import {
 } from "react-router-dom";
 import Login from "../Auth/Login";
 import SignUp from "../Auth/SignUp";
+import DashboardLayout from "../Layout/DashBoardLayout";
 import MainLayout from "../LayOut/MainLayout";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import AllTrainer from "../Pages/AllTrainer/AllTrainer";
 import Community from "../Pages/Community/Community";
-import Dashboard from "../Pages/Dashboard/Dashboard";
+import AddClass from "../Pages/Dashboard/AddClass";
+import AppliedTrainer from "../Pages/Dashboard/AppliedTrainer";
+import Balance from "../Pages/Dashboard/Balance";
+import Trainers from "../Pages/Dashboard/Trainers";
 import Home from "../Pages/Home/Home";
 import UserProfile from "../Pages/UserProfile/UserProfile";
+import PrivateRoutes from "./PrivateRoutes";
 
 
   export const router = createBrowserRouter([
@@ -31,15 +36,15 @@ import UserProfile from "../Pages/UserProfile/UserProfile";
         },
         {
           path: "community",
-          element: <Community></Community>,
-        },
-        {
-          path: "dashboard",
-          element: <Dashboard></Dashboard>,
+          element: <PrivateRoutes>
+            <Community></Community>
+          </PrivateRoutes>,
         },
         {
           path: "profile",
-          element: <UserProfile></UserProfile>,
+          element: <PrivateRoutes>
+            <UserProfile></UserProfile>
+          </PrivateRoutes>,
         },
         {
           path: "login",
@@ -51,4 +56,29 @@ import UserProfile from "../Pages/UserProfile/UserProfile";
         }
       ]
     },
+    {
+      path: "dashboard",
+      element: <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>,
+      children:[
+        // admin DashBoard
+        {
+          path: "allTrainer",
+          element: <Trainers></Trainers>
+        },
+        {
+          path: "appliedTrainer",
+          element: <AppliedTrainer></AppliedTrainer>
+        },
+        {
+          path: "balance",
+          element: <Balance></Balance>
+        },
+        {
+          path: "addClass",
+          element: <AddClass></AddClass>,
+        },
+      ]
+    }
   ]);

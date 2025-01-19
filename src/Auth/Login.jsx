@@ -1,11 +1,62 @@
 import Lottie from "lottie-react";
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import signinLotti from "../../src/assets/signin.json";
+import useAuth from "../Hooks/useAuth";
 
 const Login = () => {
+    const {signin,googleSignin,setUser} = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {
+        register,
+        handleSubmit, reset,
+        formState: { errors },
+      } = useForm();
+
+      const from = location.state?.from?.pathname || "/";
+      const onSubmit = (data) => {
+        console.log(data);
+        signin(data.email, data.password)
+        .then(result=>{
+            const signinUser = result.user;
+            setUser(signinUser)
+            reset();
+            console.log(signinUser)
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User Login Successful!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate(from,{replace:true});
+        })
+      };
+
+    //   handle google login
+    const handleGoogleLogin = async () =>{
+        try{
+            await googleSignin()
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User Login Successful!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate(from,{replace:true})
+        } 
+        catch (err){
+            toast.error(err?.message)
+        }
+    }
+
   return (
     <div className="bg-gray-100">
       <Helmet>
@@ -16,7 +67,7 @@ const Login = () => {
           <h2 className="text-2xl font-semibold text-center mb-6">
             Log In Now
           </h2>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email */}
             <div className="mb-4">
               <label
@@ -28,9 +79,13 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
+                {...register("email", { required: true })}
                 name="email"
                 className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
+              {errors.email && (
+                <span className="text-red-600">Email is required</span>
+              )}
             </div>
 
             {/* Password */}
@@ -44,9 +99,13 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
+                {...register("password", { required: true })}
                 name="password"
                 className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
+              {errors.password?.type === "required" && (
+                <p className="text-red-600">Password is required</p>
+              )}
             </div>
 
             {/* Submit Button */}
@@ -72,7 +131,7 @@ const Login = () => {
           <div className="my-4 border-t border-gray-300"></div>
 
           {/* Social Login */}
-          <button className="w-full flex items-center justify-center gap-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+          <button onClick={handleGoogleLogin} className="w-full flex items-center justify-center gap-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
             <FaGoogle />
             Continue with Google
           </button>

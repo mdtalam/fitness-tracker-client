@@ -1,15 +1,24 @@
 import {
-    Button,
-    IconButton,
-    MobileNav,
-    Navbar,
-    Typography,
+  Button,
+  IconButton,
+  MobileNav,
+  Navbar,
+  Typography,
 } from "@material-tailwind/react";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import avatarImg from '../../src/assets/avatar.jpg';
+import useAuth from "../Hooks/useAuth";
 
 const NavMenu = () => {
   const [openNav, setOpenNav] = React.useState(false);
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .then((error) => console.log(error));
+  };
 
   React.useEffect(() => {
     window.addEventListener(
@@ -120,26 +129,48 @@ const NavMenu = () => {
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <div className="flex items-center gap-x-1">
-              <Link to="/login">
+            {user ? (
+              <div className="flex items-center gap-3">
+                {/* Profile Image */}
+                <Link to="/profile">
+                  <img
+                    src={user && user?.photoURL ? user.photoURL : avatarImg}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full border-2 border-secondary object-cover"
+                  />
+                </Link>
+                {/* Sign Out Button */}
                 <Button
+                  onClick={handleLogOut}
                   variant="text"
                   size="sm"
-                  className="hidden lg:inline-block text-secondary bg-white hover:text-white"
+                  className="bg-secondary text-white hover:text-black"
                 >
-                  <span>Log In</span>
+                  Sign Out
                 </Button>
-              </Link>
-              <Link to="/sign-up">
-                <Button
-                  variant="text"
-                  size="sm"
-                  className="hidden lg:inline-block bg-secondary text-white hover:text-black"
-                >
-                  <span>Sign Up</span>
-                </Button>
-              </Link>
-            </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-1">
+                <Link to="/login">
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block text-secondary bg-white hover:text-white"
+                  >
+                    Log In
+                  </Button>
+                </Link>
+                <Link to="/sign-up">
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block bg-secondary text-white hover:text-black"
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            )}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-secondary hover:text-primary lg:hidden"
@@ -183,24 +214,24 @@ const NavMenu = () => {
           {navList}
           <div className="flex items-center justify-center gap-x-1">
             <Link to="/login">
-            <Button
-              fullWidth
-              variant="text"
-              size="sm"
-              className="text-secondary bg-white hover:text-white"
-            >
-              <span>Log In</span>
-            </Button>
+              <Button
+                fullWidth
+                variant="text"
+                size="sm"
+                className="text-secondary bg-white hover:text-white"
+              >
+                <span>Log In</span>
+              </Button>
             </Link>
             <Link to="/sign-up">
-            <Button
-              fullWidth
-              variant="gradient"
-              size="sm"
-              className="bg-secondary text-white hover:text-black"
-            >
-              <span>Sign Up</span>
-            </Button>
+              <Button
+                fullWidth
+                variant="gradient"
+                size="sm"
+                className="bg-secondary text-white hover:text-black"
+              >
+                <span>Sign Up</span>
+              </Button>
             </Link>
           </div>
         </MobileNav>
