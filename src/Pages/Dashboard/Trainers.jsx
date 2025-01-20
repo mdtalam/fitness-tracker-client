@@ -8,7 +8,7 @@ import SectionTitle from "../../Shared/SectionTitle";
 
 const Trainer = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: trainers, isLoading } = useQuery({
+  const { data: trainers, isLoading, refetch } = useQuery({
     queryKey: ['trainers'],
     queryFn: async () => {
       const { data } = await axiosSecure.get('/trainers');
@@ -16,12 +16,31 @@ const Trainer = () => {
     },
   });
 
-  console.log(trainers);
   if (isLoading) return <Spinner />;
 
-  const handleDelete = (trainerId) => {
-    // Add your delete logic here, like calling an API to delete the trainer
-    console.log(`Delete trainer with id: ${trainerId}`);
+  const handleDelete = async (trainerId, trainerEmail) => {
+    try {
+      // 1. Delete the trainer from the Trainer API
+      const trainerDeleteResponse = await axiosSecure.delete(`/trainers/${trainerId}`);
+      console.log("Trainer deleted from Trainer API", trainerDeleteResponse.data);
+
+      // 2. Update the trainer's role to "Member" in the User API (using email)
+      const userRoleUpdateResponse = await axiosSecure.patch('/users', {
+        email: trainerEmail,
+        role: 'Member', // changing the role to "Member"
+      });
+      console.log("Trainer role updated to Member in User API", userRoleUpdateResponse.data);
+
+      // 3. Refetch the trainers list to ensure the UI is updated
+      refetch();
+
+      // Optionally, show feedback
+      alert("Trainer deleted and role updated successfully!");
+
+    } catch (error) {
+      console.error("Error deleting trainer or updating role:", error);
+      alert("Failed to delete trainer or update role. Please try again.");
+    }
   };
 
   return (
@@ -56,7 +75,7 @@ const Trainer = () => {
                 <td className="px-4 py-2 text-sm text-gray-700">{trainer.email}</td>
                 <td className="px-4 py-2 text-sm text-gray-700">
                   <button
-                    onClick={() => handleDelete(trainer._id)}
+                    onClick={() => handleDelete(trainer._id, trainer.email)}
                     className="text-red-500 hover:text-red-700"
                   >
                     <RiDeleteBin2Fill />

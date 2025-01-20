@@ -14,6 +14,7 @@ import Community from "../Pages/Community/Community";
 import AddClass from "../Pages/Dashboard/AddClass";
 import AppliedTrainer from "../Pages/Dashboard/AppliedTrainer";
 import Balance from "../Pages/Dashboard/Balance";
+import Subscribers from "../Pages/Dashboard/Subscribers";
 import Trainers from "../Pages/Dashboard/Trainers";
 import Home from "../Pages/Home/Home";
 import UserProfile from "../Pages/UserProfile/UserProfile";
@@ -95,7 +96,8 @@ import PrivateRoutes from "./PrivateRoutes";
           element: <AddClass></AddClass>,
         },
         {
-          path: "subscriber"
+          path: "subscriber",
+          element: <Subscribers></Subscribers>
         }
       ]
     }
