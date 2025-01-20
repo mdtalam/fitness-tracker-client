@@ -94,6 +94,9 @@ import PrivateRoutes from "./PrivateRoutes";
           path: "addClass",
           element: <AddClass></AddClass>,
         },
+        {
+          path: "subscriber"
+        }
       ]
     }
   ]);

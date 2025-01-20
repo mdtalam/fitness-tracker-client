@@ -13,7 +13,7 @@ const AppliedTrainerDetails = () => {
     const fetchTrainerDetails = async () => {
       try {
         const response = await axiosSecure.get(
-          `http://localhost:5000/appliedTrainings/${id}`
+          `/appliedTrainings/${id}`
         );
         setTrainer(response.data);
       } catch (error) {
@@ -26,17 +26,26 @@ const AppliedTrainerDetails = () => {
 
   const handleConfirm = async () => {
     try {
-      await axiosSecure.put(`http://localhost:5000/confirmTrainer/${id}`);
-      navigate("/allTrainer");
+      const response = await axiosSecure.put(
+        `/confirmTrainer/${id}`
+      );
+  
+      if (response.data.success) {
+        alert("Trainer confirmed successfully!");
+        navigate("/dashboard/allTrainer");
+      } else {
+        alert("Failed to confirm trainer.");
+      }
     } catch (error) {
       console.error("Error confirming trainer:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
   const handleReject = async () => {
     try {
-      await axiosSecure.delete(`http://localhost:5000/rejectTrainer/${id}`);
-      navigate("/appliedTrainers");
+      await axiosSecure.delete(`/rejectTrainer/${id}`);
+      navigate("/dashboard/appliedTrainer");
     } catch (error) {
       console.error("Error rejecting trainer:", error);
     }

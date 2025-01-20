@@ -15,7 +15,7 @@ import {
 import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
-import { MdAccountBalance, MdGroupAdd } from "react-icons/md";
+import { MdAccountBalance, MdGroupAdd, MdUnsubscribe } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Link, Outlet } from "react-router-dom";
 
@@ -61,6 +61,19 @@ const DashboardLayout = () => {
 
         {/* Sidebar Items */}
         <List className="flex-1">
+        <ListItem>
+            <ListItemPrefix>
+            <MdUnsubscribe className="h-5 w-5 text-secondary" />
+            </ListItemPrefix>
+            <Link
+              to="subscriber"
+              className={`text-secondary duration-300 ${
+                open ? "block" : "hidden"
+              }`}
+            >
+              Subscribers
+            </Link>
+          </ListItem>
           <ListItem>
             <ListItemPrefix>
               <HiUserGroup className="h-5 w-5 text-secondary" />

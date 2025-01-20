@@ -1,6 +1,35 @@
 import React from "react";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const NewsLetter = () => {
+    const axiosPublic = useAxiosPublic();
+    const handleSubmit = async (event) =>{
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+
+        const subscriberData = {
+            name,
+            email
+        }
+        console.table(subscriberData)
+        try{
+            await axiosPublic.post('/subscriber', subscriberData)
+            Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Subscribed Successful!",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+        }catch (err){
+            console.log(err)
+        }
+    }
+
+
   return (
     <div>
         <section
@@ -21,10 +50,11 @@ const NewsLetter = () => {
         </p>
 
         {/* Subscription Form */}
-        <form className="flex flex-col md:flex-row items-center justify-center gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center justify-center gap-4">
           {/* Name Field */}
           <input
             type="text"
+            name="name"
             placeholder="Your Name"
             className="w-full md:w-auto px-4 py-3 text-gray-800 rounded-lg focus:outline-none"
           />
@@ -32,6 +62,7 @@ const NewsLetter = () => {
           {/* Email Field */}
           <input
             type="email"
+            name="email"
             placeholder="Your Email Address"
             className="w-full md:w-auto px-4 py-3 text-gray-800 rounded-lg focus:outline-none"
           />
@@ -39,7 +70,7 @@ const NewsLetter = () => {
           {/* Subscribe Button */}
           <button
             type="submit"
-            className="bg-teal-500 hover:bg-teal-600 px-6 py-3 text-white font-semibold rounded-lg transition duration-300"
+            className="bg-primary hover:bg-teal-600 px-6 py-3 text-white font-semibold rounded-lg transition duration-300"
           >
             Subscribe Now
           </button>

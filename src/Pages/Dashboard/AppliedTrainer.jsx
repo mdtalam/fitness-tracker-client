@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import SectionTitle from '../../Shared/SectionTitle';
 
 const AppliedTrainer = () => {
   const axiosSecure = useAxiosSecure();
@@ -18,7 +20,10 @@ const AppliedTrainer = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Applied Trainers</h1>
+        <Helmet>
+        <title>Dashboard | Applied Trainers</title>
+      </Helmet>
+      <SectionTitle title={"Applied Trainers"} />
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto bg-white border border-gray-300 shadow-md">
           <thead>

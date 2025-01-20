@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Spinner from "../../OthersComponent/Spinner";
 import SectionTitle from "../../Shared/SectionTitle";
 import TrainerCard from "./AllTrainerComponent/TrainerCard";
 
 const AllTrainer = () => {
-  const [trainers, setTrainers] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/trainers")
-      .then((res) => res.json())
-      .then((data) => setTrainers(data));
-  }, []);
-  console.log(trainers);
+    const axiosPublic = useAxiosPublic();
+    const {data: trainers, isLoading} = useQuery({
+        queryKey: ['trainers'],
+        queryFn: async () =>{
+            const {data} = await axiosPublic.get('/trainers');
+            return data
+        }
+    })
+    if(isLoading) return <Spinner></Spinner>
+
   return (
     <div className="my-14">
       <Helmet>
