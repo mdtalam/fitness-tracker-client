@@ -5,6 +5,8 @@ import Login from "../Auth/Login";
 import SignUp from "../Auth/SignUp";
 import DashboardLayout from "../Layout/DashBoardLayout";
 import MainLayout from "../LayOut/MainLayout";
+import BeATrainer from "../OthersComponent/BeATrainer";
+import TrainerDetails from "../OthersComponent/TrainerDetails";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import AllTrainer from "../Pages/AllTrainer/AllTrainer";
 import Community from "../Pages/Community/Community";
@@ -29,6 +31,14 @@ import PrivateRoutes from "./PrivateRoutes";
         {
           path: "all-trainer",
           element: <AllTrainer></AllTrainer>,
+        },
+        {
+          path: "details/:id",
+          element: <TrainerDetails></TrainerDetails>
+        },
+        {
+          path: "become-a-trainer",
+          element: <BeATrainer></BeATrainer>
         },
         {
           path: "all-classes",
