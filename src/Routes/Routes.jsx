@@ -5,6 +5,7 @@ import Login from "../Auth/Login";
 import SignUp from "../Auth/SignUp";
 import DashboardLayout from "../Layout/DashBoardLayout";
 import MainLayout from "../LayOut/MainLayout";
+import AppliedTrainerDetails from "../OthersComponent/AppliedTrainerDetails";
 import BeATrainer from "../OthersComponent/BeATrainer";
 import TrainerDetails from "../OthersComponent/TrainerDetails";
 import AllClasses from "../Pages/AllClasses/AllClasses";
@@ -80,6 +81,10 @@ import PrivateRoutes from "./PrivateRoutes";
         {
           path: "appliedTrainer",
           element: <AppliedTrainer></AppliedTrainer>
+        },
+        {
+          path: "trainer-details/:id",
+          element: <AppliedTrainerDetails></AppliedTrainerDetails>
         },
         {
           path: "balance",
