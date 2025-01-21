@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import signinLotti from "../../src/assets/signin.json";
 import useAuth from "../Hooks/useAuth";
+import { saveUserToDb } from "../ImageAPI/utils";
 
 const Login = () => {
   const { signin, googleSignin, setUser } = useAuth();
@@ -45,7 +46,9 @@ const Login = () => {
   // Handle Google Login
   const handleGoogleLogin = async () => {
     try {
-      await googleSignin();
+      const data = await googleSignin();
+    //   save user data to database
+    await saveUserToDb(data?.user)
       Swal.fire({
         position: "center",
         icon: "success",

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import lottiSignUp from "../../src/assets/signUp.json";
 import useAuth from "../Hooks/useAuth";
-import { imageUpload } from "../ImageAPI/utils";
+import { imageUpload, saveUserToDb } from "../ImageAPI/utils";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, setUser, logOut } = useAuth();
@@ -42,37 +42,36 @@ const SignUp = () => {
       return;
     }
 
-    // Create new user
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
+    try {
+        // Create new user
+        const result = await createUser(email, password);
+      
         // Update user profile with name and photo URL
-        updateUserProfile(name, photoURL)
-          .then(() => {
-            Swal.fire({
-              title: "Registration Successful!",
-              text: `Welcome, ${user?.displayName}`,
-              icon: "success",
-              confirmButtonText: "Proceed to Login",
-            }).then(() => {
-              // Log out the user immediately after registration
-              logOut()
-                .then(() => {
-                  navigate("/login");
-                })
-                .catch((error) => {
-                  setErrorMessage(error.message);
-                });
-            });
-          })
-          .catch((error) => {
-            setErrorMessage(error.message);
-          });
-      })
-      .catch((error) => {
+        await updateUserProfile(name, photoURL);
+      
+        // Save user data to database
+        await saveUserToDb({ ...result?.user, displayName: name, photoURL });
+      
+        // Show success message
+        Swal.fire({
+          title: "Registration Successful!",
+          text: `Welcome, ${name}`,
+          icon: "success",
+          confirmButtonText: "Proceed to Login",
+        }).then(async () => {
+          try {
+            // Log out the user immediately after registration
+            await logOut();
+            navigate("/login");
+          } catch (logoutError) {
+            setErrorMessage(logoutError.message);
+          }
+        });
+      } catch (error) {
+        // Handle any errors in the entire process
         setErrorMessage(error.message);
-      });
+      }
+      
   };
 
   return (

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase.config";
@@ -48,12 +47,6 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, async currentUser =>{
             if(currentUser?.email){
                 setUser(currentUser);
-                // save user info
-                await axios.post(`${import.meta.env.VITE_API_URL}/users/${currentUser?.email}`,{
-                    name: currentUser?.displayName,
-                    image: currentUser?.photoURL,
-                    email: currentUser?.email,
-                })
                 // get token and stor client site
                 const userInfo = {email: currentUser.email};
                 axiosPublic.post('/jwt',userInfo)
