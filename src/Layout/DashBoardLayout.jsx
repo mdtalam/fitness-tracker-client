@@ -1,8 +1,4 @@
-import {
-  Bars3Icon,
-  PowerIcon,
-  XMarkIcon
-} from "@heroicons/react/24/solid";
+import { Bars3Icon, PowerIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import {
   Chip,
   IconButton,
@@ -13,14 +9,33 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
-import { FaHome } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { FaBookmark, FaHome } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
-import { MdAccountBalance, MdGroupAdd, MdUnsubscribe } from "react-icons/md";
+import { LuSquareActivity } from "react-icons/lu";
+import {
+  MdAccountBalance,
+  MdAddBusiness,
+  MdForum,
+  MdGroupAdd,
+  MdManageAccounts,
+  MdUnsubscribe,
+} from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { Link, Outlet } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
+import useRole from "../Hooks/useRole";
 
 const DashboardLayout = () => {
+  const [role, isLoading] = useRole();
   const [open, setOpen] = useState(false);
+  const { logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .then((error) => console.log(error));
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -58,114 +73,191 @@ const DashboardLayout = () => {
             FitFusion
           </Typography>
         </div>
-
+        {/* admin menu */}
         {/* Sidebar Items */}
         <List className="flex-1">
-        <ListItem>
-            <ListItemPrefix>
-            <MdUnsubscribe className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="subscriber"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              Subscribers
-            </Link>
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <HiUserGroup className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="allTrainer"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              All Trainer
-            </Link>
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <MdGroupAdd className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="appliedTrainer"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              Applied Trainer
-            </Link>
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <MdAccountBalance className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="balance"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              Balance
-            </Link>
-            <ListItemSuffix>
-              <Chip
-                value="14"
-                size="sm"
-                color="blue-gray"
-                className={`rounded-full ${open ? "block" : "hidden"}`}
-              />
-            </ListItemSuffix>
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <SiGoogleclassroom className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="addClass"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              Add New Class
-            </Link>
-          </ListItem>
+          {role === "admin" && (
+            <>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdUnsubscribe className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="subscriber"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Subscribers
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <HiUserGroup className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="allTrainer"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  All Trainer
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdGroupAdd className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="appliedTrainer"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Applied Trainer
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdAccountBalance className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="balance"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Balance
+                </Link>
+                <ListItemSuffix>
+                  <Chip
+                    value="14"
+                    size="sm"
+                    color="blue-gray"
+                    className={`rounded-full ${open ? "block" : "hidden"}`}
+                  />
+                </ListItemSuffix>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <SiGoogleclassroom className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="addClass"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Add New Class
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdForum className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="addForum"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Add new Forum
+                </Link>
+              </ListItem>
+            </>
+          )}
 
           {/* trainer Dashboard */}
 
-          <ListItem>
-            <ListItemPrefix>
-              <SiGoogleclassroom className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="addClass"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              Add New Class
-            </Link>
-          </ListItem>
+          {role === "trainer" && (
+            <>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdManageAccounts className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="manageSlots"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Manage Slots
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdAddBusiness className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="addSlot"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Add New Slot
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <MdForum className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="addForum"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Add new Forum
+                </Link>
+              </ListItem>
+            </>
+          )}
 
           {/* Member Dashboard */}
 
-          <ListItem>
-            <ListItemPrefix>
-              <SiGoogleclassroom className="h-5 w-5 text-secondary" />
-            </ListItemPrefix>
-            <Link
-              to="addClass"
-              className={`text-secondary duration-300 ${
-                open ? "block" : "hidden"
-              }`}
-            >
-              Add New Class
-            </Link>
-          </ListItem>
+          {role === "member" && (
+            <>
+              <ListItem>
+                <ListItemPrefix>
+                  <LuSquareActivity className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="activityLog"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Activity Log
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <CgProfile className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="profile"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Profile
+                </Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <FaBookmark className="h-5 w-5 text-secondary" />
+                </ListItemPrefix>
+                <Link
+                  to="bookedTrainer"
+                  className={`text-secondary duration-300 ${
+                    open ? "block" : "hidden"
+                  }`}
+                >
+                  Booked Trainer
+                </Link>
+              </ListItem>
+            </>
+          )}
 
           <div className="my-4 border-t border-gray-300"></div>
           <ListItem>
@@ -185,14 +277,14 @@ const DashboardLayout = () => {
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5 text-secondary" />
             </ListItemPrefix>
-            <Link
-              to="/logout"
+            <button
+              onClick={handleLogOut}
               className={`text-secondary duration-300 ${
                 open ? "block" : "hidden"
               }`}
             >
               Log Out
-            </Link>
+            </button>
           </ListItem>
         </List>
       </div>

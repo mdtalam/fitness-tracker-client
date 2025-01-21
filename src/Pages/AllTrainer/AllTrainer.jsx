@@ -24,7 +24,7 @@ const AllTrainer = () => {
       </Helmet>
       <SectionTitle title={"All Trainers"}></SectionTitle>
       <div className="px-6 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {trainers.map((trainer) => (
+        {trainers?.map((trainer) => (
           <TrainerCard key={trainer._id} trainer={trainer} />
         ))}
       </div>

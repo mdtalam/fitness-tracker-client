@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import lottiSignUp from "../../src/assets/signUp.json";
@@ -11,6 +12,7 @@ const SignUp = () => {
   const { createUser, updateUserProfile, setUser, logOut } = useAuth();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -19,7 +21,7 @@ const SignUp = () => {
     const email = form.email.value;
     const photo = form.photo.files[0];
     const password = form.password.value;
-    console.log(name,email,photo,password)
+    console.log(name, email, photo, password);
 
     // send image data to imgbb
     const photoURL = await imageUpload(photo);
@@ -135,19 +137,28 @@ const SignUp = () => {
             </div>
 
             {/* Password */}
-            <div className="mb-6">
+            <div className="mb-6 relative">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 top-2 right-3 flex items-center text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
             {errorMessage && (
               <label className="label text-red-500 text-sm">
