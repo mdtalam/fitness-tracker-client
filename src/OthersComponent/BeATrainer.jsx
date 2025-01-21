@@ -9,8 +9,8 @@ const BeATrainer = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const [formData, setFormData] = useState({
-    fullName: user?.displayName || "", // Default to user's display name
-    email: user?.email, // Read-only
+    fullName: user?.displayName || "",
+    email: user?.email,
     age: "",
     profileImage: "",
     skills: [],
@@ -18,10 +18,9 @@ const BeATrainer = () => {
     experience: "",
     classDuration: "",
     biography: "",
-    status: "pending", // Default status
+    status: "pending",
   });
 
-  // Function to reset form data
   const resetFormData = () => {
     setFormData({
       fullName: user?.displayName || "",
@@ -36,8 +35,6 @@ const BeATrainer = () => {
       status: "pending",
     });
   };
-
-  
 
   const skillOptions = [
     "HIIT Blast",
@@ -84,50 +81,56 @@ const BeATrainer = () => {
   const handleImageUpload = async (e) => {
     const imageFile = e.target.files[0];
     if (imageFile) {
-      const uploadFormData = new FormData(); // Renamed the local variable
+      const uploadFormData = new FormData();
       uploadFormData.append("image", imageFile);
-  
+
       try {
         const response = await axios.post(
-          `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_API_KEY}`,
+          `https://api.imgbb.com/1/upload?key=${
+            import.meta.env.VITE_IMAGE_API_KEY
+          }`,
           uploadFormData
         );
         if (response.data.success) {
           setFormData((prevFormData) => ({
             ...prevFormData,
-            profileImage: response.data.data.url, // Set the uploaded image URL
+            profileImage: response.data.data.url,
           }));
-          alert("Image uploaded successfully!");
+          Swal.fire("Image uploaded successfully!", "", "success");
         }
       } catch (error) {
-        console.error("Image upload failed", error);
-        alert("Failed to upload image. Please try again.");
+        Swal.fire("Failed to upload image. Please try again.", "", "error");
       }
-    }
-  };;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData); // Log the form data
-    try{
-        await axiosPublic.post('/trainers', formData)
-        Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Request Submitted Successfully!",
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                  resetFormData();
-    }
-    catch (error){
-        console.log(error)
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axiosPublic.post("/trainers", formData);
+
+      if (response.data.success) {
+        Swal.fire("Request Submitted Successfully!", "", "success");
+        resetFormData();
+      } else {
+        Swal.fire("Error", response.data.message, "error");
+        resetFormData();
+      }
+    } catch (error) {
+      Swal.fire(
+        "You have already submitted a request to become a trainer.",
+        "",
+        "error"
+      );
+      resetFormData();
+    }
+  };
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white text-secondary rounded-lg shadow-md mt-6">
-      <h2 className="text-2xl font-bold mb-6 text-center text-primary">Become a Trainer</h2>
+    <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-secondary rounded-lg shadow-md mt-6">
+      <h2 className="text-2xl font-bold mb-6 text-center text-primary">
+        Become a Trainer
+      </h2>
       <form onSubmit={handleSubmit}>
         {/* Full Name */}
         <div className="mb-4">
@@ -219,23 +222,31 @@ const BeATrainer = () => {
           />
         </div>
 
-        {/* Other Fields
-        Available Time
+        {/* Available Time */}
         <div className="mb-4">
           <label className="block font-semibold mb-2">Available Time *</label>
-          <input
-            type="time"
+          <select
             name="availableTime"
             value={formData.availableTime}
             onChange={handleInputChange}
             required
             className="w-full border border-secondary p-2 rounded bg-transparent focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-        </div> */}
+          >
+            <option value="">
+              Select a time
+            </option>
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+            <option value="Night">Night</option>
+          </select>
+        </div>
 
         {/* Experience */}
         <div className="mb-4">
-          <label className="block font-semibold mb-2">Experience (Years) *</label>
+          <label className="block font-semibold mb-2">
+            Experience (Years) *
+          </label>
           <input
             type="number"
             name="experience"
@@ -248,7 +259,9 @@ const BeATrainer = () => {
 
         {/* Class Duration */}
         <div className="mb-4">
-          <label className="block font-semibold mb-2">Class Duration (Hours) *</label>
+          <label className="block font-semibold mb-2">
+            Class Duration (Hours) *
+          </label>
           <input
             type="number"
             name="classDuration"
