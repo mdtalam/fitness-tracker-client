@@ -6,23 +6,23 @@ import Spinner from "./Spinner";
 const TrainerBooked = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const {data: slot, isLoading, error} = useQuery({
-    queryKey: ['slot', id],
+  const {
+    data: slot,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["slot", id],
     queryFn: async () => {
-        const {data} = await axiosSecure.get(`/slots/book/${id}`);
-        return data;
-    }
-  })
-
-  
+      const { data } = await axiosSecure.get(`/slots/book/${id}`);
+      return data;
+    },
+  });
 
   const packages = [
     {
       name: "Basic Membership",
       price: "$10",
-      benefits: [
-        "Access to gym facilities during regular operating hours",
-      ],
+      benefits: ["Access to gym facilities during regular operating hours"],
     },
     {
       name: "Standard Membership",
@@ -47,16 +47,22 @@ const TrainerBooked = () => {
     },
   ];
 
-  if(isLoading) return <Spinner></Spinner>
-  if(error) return <Spinner></Spinner>
+  if (isLoading) return <Spinner />;
+  if (error) return <Spinner />;
 
   return (
     <div className="trainer-booked-page p-6 bg-gray-100">
       {/* Trainer Info and Slot */}
       <div className="trainer-info p-6 bg-white shadow-md rounded-lg mb-6 my-14">
-        <h2 className="text-3xl font-bold mb-4 capitalize">Trainer: {slot.trainerName}</h2>
-        <p className="text-xl font-semibold mb-4 capitalize">Selected Slot: {slot.slotName}</p>
-        <p className="text-gray-600">Slot time: {slot.slotTime} {slot.slotTime == 1 ? "Hour" : "Hours"}</p>
+        <h2 className="text-3xl font-bold mb-4 capitalize">
+          Trainer: {slot.trainerName}
+        </h2>
+        <p className="text-xl font-semibold mb-4 capitalize">
+          Selected Slot: {slot.slotName}
+        </p>
+        <p className="text-gray-600">
+          Slot time: {slot.slotTime} {slot.slotTime == 1 ? "Hour" : "Hours"}
+        </p>
       </div>
 
       {/* Packages Section */}
@@ -69,8 +75,12 @@ const TrainerBooked = () => {
               className="package-card bg-primary p-6 rounded-lg shadow-lg flex flex-col justify-between min-h-[400px] hover:scale-105 transition-transform duration-300 ease-in-out"
             >
               <div>
-                <h4 className="text-xl font-semibold mb-3 text-secondary">{pkg.name}</h4>
-                <p className="text-lg font-semibold text-secondary">{pkg.price}</p>
+                <h4 className="text-xl font-semibold mb-3 text-secondary">
+                  {pkg.name}
+                </h4>
+                <p className="text-lg font-semibold text-secondary">
+                  {pkg.price}
+                </p>
                 <ul className="mt-4 list-inside list-none text-secondary">
                   {pkg.benefits.map((benefit, i) => (
                     <li key={i} className="text-sm flex items-center">
@@ -84,6 +94,11 @@ const TrainerBooked = () => {
               <div className="mt-auto">
                 <Link
                   to="/payment"
+                  state={{
+                    slot,
+                    packageName: pkg.name,
+                    packagePrice: pkg.price, // Passing the package price
+                  }}
                   className="bg-secondary text-white font-semibold text-lg px-6 py-3 rounded-full shadow-lg transform hover:text-secondary hover:bg-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out w-full text-center"
                 >
                   Join Now

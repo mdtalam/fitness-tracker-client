@@ -27,7 +27,7 @@ const TrainerCard = ({ trainer }) => {
       fetchAvailableSlots();
     }
   }, [email]);
-  console.log(availableSlots)
+  
 
   return (
     <div className="w-full h-[420px] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
