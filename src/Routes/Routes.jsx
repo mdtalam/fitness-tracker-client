@@ -15,7 +15,7 @@ import Community from "../Pages/Community/Community";
 import ActivityLog from "../Pages/Dashboard/ActivityLog";
 import AddClass from "../Pages/Dashboard/AddClass";
 import AddForum from "../Pages/Dashboard/AddForum";
-import AddNewSlots from "../Pages/Dashboard/AddNewSlots";
+import AddNewSlot from "../Pages/Dashboard/AddNewSlot";
 import AppliedTrainer from "../Pages/Dashboard/AppliedTrainer";
 import Balance from "../Pages/Dashboard/Balance";
 import BookedTrainer from "../Pages/Dashboard/BookedTrainer";
@@ -158,7 +158,7 @@ import TrainerRoute from "./TrainerRoute";
           path: "addSlot",
           element: <PrivateRoutes>
           <TrainerRoute>
-          <AddNewSlots></AddNewSlots>
+          <AddNewSlot></AddNewSlot>
           </TrainerRoute>
         </PrivateRoutes>
         },

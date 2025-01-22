@@ -15,6 +15,7 @@ const BeATrainer = () => {
     profileImage: "",
     skills: [],
     availableDays: [],
+    availableTime: [],
     experience: "",
     classDuration: "",
     biography: "",
@@ -29,6 +30,7 @@ const BeATrainer = () => {
       profileImage: "",
       skills: [],
       availableDays: [],
+      availableTime: [],
       experience: "",
       classDuration: "",
       biography: "",
@@ -76,6 +78,11 @@ const BeATrainer = () => {
 
   const handleDayChange = (selectedDays) => {
     setFormData({ ...formData, availableDays: selectedDays });
+  };
+
+  const handleAvailableTimeChange = (selectedOptions) => {
+    const selectedValues = selectedOptions ? selectedOptions.map((option) => option.value) : [];
+    setFormData({ ...formData, availableTime: selectedValues });
   };
 
   const handleImageUpload = async (e) => {
@@ -126,6 +133,7 @@ const BeATrainer = () => {
       resetFormData();
     }
   };
+
   return (
     <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-secondary rounded-lg shadow-md mt-6">
       <h2 className="text-2xl font-bold mb-6 text-center text-primary">
@@ -225,21 +233,21 @@ const BeATrainer = () => {
         {/* Available Time */}
         <div className="mb-4">
           <label className="block font-semibold mb-2">Available Time *</label>
-          <select
-            name="availableTime"
-            value={formData.availableTime}
-            onChange={handleInputChange}
-            required
-            className="w-full border border-secondary p-2 rounded bg-transparent focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="">
-              Select a time
-            </option>
-            <option value="Morning">Morning</option>
-            <option value="Afternoon">Afternoon</option>
-            <option value="Evening">Evening</option>
-            <option value="Night">Night</option>
-          </select>
+          <Select
+            isMulti
+            options={[
+              { value: "Morning", label: "Morning" },
+              { value: "Afternoon", label: "Afternoon" },
+              { value: "Evening", label: "Evening" },
+              { value: "Night", label: "Night" },
+            ]}
+            onChange={handleAvailableTimeChange}
+            className="w-full"
+            value={formData.availableTime.map((time) => ({
+              value: time,
+              label: time,
+            }))}
+          />
         </div>
 
         {/* Experience */}

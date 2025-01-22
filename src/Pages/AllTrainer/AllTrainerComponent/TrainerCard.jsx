@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const TrainerCard = ({ trainer }) => {
-  const {fullName,profileImage, experience,} = trainer;
+  const { fullName, profileImage, experience, email } = trainer;
+  const axiosPublic = useAxiosPublic()
+  const [availableSlots, setAvailableSlots] = useState([]);
+
+  // Fetch available slots for this trainer based on the email
+  useEffect(() => {
+    const fetchAvailableSlots = async () => {
+      try {
+        const response = await axiosPublic.get(`/slots/${email}`);
+        if (response.data.success) {
+          setAvailableSlots(response.data.slots); // Set slots data
+        } else {
+          console.error("No slots found for this trainer");
+        }
+      } catch (error) {
+        console.error("Error fetching available slots:", error);
+      }
+    };
+
+    if (email) {
+      fetchAvailableSlots();
+    }
+  }, [email]);
+  console.log(availableSlots)
+
   return (
     <div className="w-full h-[420px] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
       {/* Profile Image Section */}
@@ -67,15 +92,24 @@ const TrainerCard = ({ trainer }) => {
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Available Slots:</h3>
             <ul className="list-disc list-inside text-gray-600 text-sm">
-              {trainer.availableSlots?.map((slot, index) => (
-                <li key={index}>{slot}</li>
-              ))}
+              {availableSlots.length > 0 ? (
+                availableSlots.map((slot, index) => (
+                  <li key={index}>
+                    {slot.slotName} {/* Only showing slotName */}
+                  </li>
+                ))
+              ) : (
+                <li>No slots available</li>
+              )}
             </ul>
           </div>
         </div>
 
         {/* Know More Button */}
-        <Link to={`/details/${trainer._id}`} className="mt-4 w-full bg-primary text-secondary py-2 px-4 rounded hover:bg-secondary hover:text-primary transition-all duration-1000 ease-in-out">
+        <Link
+          to={`/details/${trainer._id}`}
+          className="mt-4 w-full bg-primary text-secondary py-2 px-4 rounded hover:bg-secondary hover:text-primary transition-all duration-1000 ease-in-out"
+        >
           Know More
         </Link>
       </div>

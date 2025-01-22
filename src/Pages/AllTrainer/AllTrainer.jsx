@@ -7,6 +7,7 @@ import SectionTitle from "../../Shared/SectionTitle";
 import TrainerCard from "./AllTrainerComponent/TrainerCard";
 
 const AllTrainer = () => {
+  
     const axiosPublic = useAxiosPublic();
     const {data: trainers, isLoading} = useQuery({
         queryKey: ['trainers'],
@@ -15,6 +16,7 @@ const AllTrainer = () => {
             return data
         }
     })
+    
     if(isLoading) return <Spinner></Spinner>
 
   return (
