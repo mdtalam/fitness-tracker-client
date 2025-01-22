@@ -1,18 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaCaretRight, FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import {
+  FaCaretRight,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import Spinner from "./Spinner";
 
 const TrainerDetails = () => {
   const { id } = useParams(); // Get the trainer's ID from the URL
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  console.log(id);
+
+  // Fetch trainer details
   const {
     data: trainer,
-    isLoading,
-    refetch,
+    isLoading: trainerLoading,
+    error: trainerError,
   } = useQuery({
     queryKey: ["trainer", id],
     queryFn: async () => {
@@ -20,17 +28,32 @@ const TrainerDetails = () => {
       return data;
     },
   });
-  console.log(trainer);
 
-  const handleSlotClick = (slot) => {
-    // Navigate to the booking page with selected slot details
-    navigate(`/booking/${id}`, { state: { slot, trainerName: trainer.name } });
-  };
+  // Fetch slots for the trainer
+  const {
+    data: slots,
+    isLoading: slotsLoading,
+    error: slotsError,
+  } = useQuery({
+    queryKey: ["slots", id],
+    queryFn: async () => {
+      const { data } = await axiosPublic(`/slots/${trainer?.email}`);
+      return data;
+    },
+    enabled: !!id, // Only fetch if ID is available
+  });
+
+
+  // Handle loading states
+  if (trainerLoading || slotsLoading) return <Spinner></Spinner>;
+
+  // Handle error states
+  if (trainerError || slotsError) return <Spinner></Spinner>;
 
   return (
     <div>
-      <div className="flex gap-10">
-        <div className="w-2/3 mx-auto p-6 bg-gray-100 shadow-md rounded-lg">
+      <div className="flex gap-10 bg-gray-100">
+        <div className="w-2/3 mx-2 p-6 bg-white my-14 shadow-md rounded-lg">
           {/* Trainer Info Section */}
           <div className="flex flex-col md:flex-row items-center gap-6">
             <img
@@ -40,14 +63,14 @@ const TrainerDetails = () => {
             />
             <div>
               <h1 className="text-3xl mb-6 font-bold">{trainer?.fullName}</h1>
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-gray-500 mt-2">
                 <span className="text-lg font-semibold">Expertise:</span>
               </p>
               <ul className="list-inside list-none space-y-2 text-gray-700">
                 {Array.isArray(trainer?.skills) ? (
                   trainer.skills.map((skill, index) => (
                     <li key={index} className="flex items-center">
-                      <FaCaretRight className="mr-2 text-sm" /> {skill}
+                      <FaCaretRight className="mr-2" /> {skill}
                     </li>
                   ))
                 ) : (
@@ -57,7 +80,7 @@ const TrainerDetails = () => {
 
               {/* Social Media Section */}
               <div className="mt-6">
-                <h3 className="text-xl font-semibold mb-4">
+                <h3 className="text-lg font-semibold mb-4">
                   Connect with {trainer?.fullName}:
                 </h3>
                 <div className="flex items-center gap-4">
@@ -98,17 +121,46 @@ const TrainerDetails = () => {
             </div>
           </div>
           <div className="py-4 pt-8">
-          <p className="text-gray-700 mt-2">{trainer?.biography}</p>
+            <p className="text-gray-700 mt-2">{trainer?.biography}</p>
           </div>
         </div>
-        <div className="w-1/3">
-            slot section
+
+        {/* Slot Section */}
+        <div className="w-1/3 p-6 bg-white my-14 mx-2 shadow-md rounded-lg">
+          <h3 className="text-xl font-bold mb-4">Available Slots</h3>
+          {slotsLoading ? (
+            <Spinner />
+          ) : slots?.slots?.length > 0 ? (
+            <ul className="space-y-4">
+              {slots.slots.map((slot) => (
+                <li
+                  key={slot.id}
+                  className="p-4 border border-gray-300 rounded-lg flex justify-between items-center"
+                >
+                  <div>
+                    <h4 className="font-semibold capitalize">{slot.slotName}</h4>
+                    <p className="text-sm text-gray-600">
+                      {slot.slotTime} {slot.slotTime == 1 ? "Hour" : "Hours"}
+                    </p>
+                  </div>
+                  <Link
+                    to={`/bookedPage/${slot._id}`}
+                    className="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-3 rounded-full shadow-md transform hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
+                  >
+                    Book Now
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No slots available</p>
+          )}
         </div>
       </div>
 
       {/* Be A Trainer Section */}
       <section
-        className="be-a-trainer h-64 py-14 my-14 bg-cover bg-center p-6 rounded shadow-md mt-6 text-center relative"
+        className="be-a-trainer h-64 py-14 my-14 bg-cover bg-center p-6 rounded-xl shadow-md mt-6 text-center relative"
         style={{
           backgroundImage: `url('https://i.ibb.co.com/7RPX4Tj/karsten-winegeart-0-Wra5-YYVQJE-unsplash.jpg')`,
           backgroundSize: "cover",
@@ -117,7 +169,7 @@ const TrainerDetails = () => {
         }}
       >
         {/* Overlay for better text visibility */}
-        <div className="absolute inset-0 bg-black bg-opacity-50 rounded"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-50 rounded-xl"></div>
 
         {/* Content */}
         <div className="relative z-10">

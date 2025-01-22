@@ -8,6 +8,7 @@ import MainLayout from "../LayOut/MainLayout";
 import AppliedTrainerDetails from "../OthersComponent/AppliedTrainerDetails";
 import BeATrainer from "../OthersComponent/BeATrainer";
 import ErrorPage from "../OthersComponent/ErrorPage";
+import TrainerBooked from "../OthersComponent/TrainerBooked";
 import TrainerDetails from "../OthersComponent/TrainerDetails";
 import AllClasses from "../Pages/AllClasses/AllClasses";
 import AllTrainer from "../Pages/AllTrainer/AllTrainer";
@@ -47,6 +48,10 @@ import TrainerRoute from "./TrainerRoute";
         {
           path: "details/:id",
           element: <TrainerDetails></TrainerDetails>
+        },
+        {
+          path: "bookedPage/:id",
+          element: <PrivateRoutes><TrainerBooked></TrainerBooked></PrivateRoutes>
         },
         {
           path: "become-a-trainer",
