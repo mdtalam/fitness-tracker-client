@@ -1,5 +1,10 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { useLocation } from "react-router-dom";
+import CheckOutForm from "./CheckOutForm";
 
+// add publishable key
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_KEY)
 const Payment = () => {
   const location = useLocation();
   const { slot, packageName, packagePrice } = location.state || {}; // Access packagePrice
@@ -39,29 +44,18 @@ const Payment = () => {
 
         {/* Payment Options */}
         <div className="payment-options p-6 bg-gray-50 rounded-lg shadow-md">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Choose Your Payment Method</h3>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="payment-option bg-white p-4 rounded-lg shadow-md text-center">
-              <h4 className="text-lg font-semibold text-gray-700 mb-4">Credit/Debit Card</h4>
-              <button className="w-full bg-gradient-to-r from-indigo-500 to-blue-500 text-white py-2 px-4 rounded-lg hover:scale-105 transition-transform duration-200">
-                Pay with Card
-              </button>
-            </div>
-            <div className="payment-option bg-white p-4 rounded-lg shadow-md text-center">
-              <h4 className="text-lg font-semibold text-gray-700 mb-4">PayPal</h4>
-              <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-2 px-4 rounded-lg hover:scale-105 transition-transform duration-200">
-                Pay with PayPal
-              </button>
-            </div>
-          </div>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-8">Choose Your Payment Method</h3>
+          <Elements stripe={stripePromise}>
+            <CheckOutForm></CheckOutForm>
+          </Elements>
         </div>
 
         {/* Payment Summary */}
-        <div className="payment-summary mt-8 text-center">
+        {/* <div className="payment-summary mt-8 text-center">
           <button className="w-full bg-gradient-to-r from-green-400 to-teal-500 text-white py-3 px-6 rounded-full shadow-lg text-lg font-semibold hover:scale-105 transition-transform duration-200">
             Confirm Payment
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

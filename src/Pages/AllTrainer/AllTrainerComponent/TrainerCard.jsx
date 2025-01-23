@@ -82,8 +82,8 @@ const TrainerCard = ({ trainer }) => {
         {/* Name and Experience */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">{fullName}</h2>
-            <p className="text-sm text-gray-500">
+            <h2 className="text-lg font-semibold capitalize">{fullName}</h2>
+            <p className="text-sm text-gray-500 capitalize">
               {experience} yrs experience
             </p>
           </div>
@@ -91,7 +91,7 @@ const TrainerCard = ({ trainer }) => {
           {/* Available Slots */}
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">Available Slots:</h3>
-            <ul className="list-disc list-inside text-gray-600 text-sm">
+            <ul className="list-disc list-inside text-gray-600 text-sm capitalize">
               {availableSlots.length > 0 ? (
                 availableSlots.map((slot, index) => (
                   <li key={index}>
