@@ -24,14 +24,14 @@ const AddClass = () => {
     const additionalInfo = form.additionalInfo.value;
     const image = form.image.files[0];
     const imageURL = await imageUpload(image);
-
+  
     // User Info
     const adminUser = {
       name: user?.displayName,
       image: user?.photoURL,
       email: user?.email,
     };
-
+  
     // Create class data object
     const classData = {
       className,
@@ -40,18 +40,20 @@ const AddClass = () => {
       image: imageURL,
       adminUser,
     };
-    console.table(classData);
-    try{
-        await axiosSecure.post('/classes', classData)
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Class Added Successfully!",
-            showConfirmButton: false,
-            timer: 1500
-          });
-    }catch (err) {
-        console.log(err)
+  
+    try {
+      await axiosSecure.post('/classes', classData);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Class Added Successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      form.reset(); // Reset the form fields
+      setPreviewImage(null); // Clear the preview image
+    } catch (err) {
+      console.error(err);
     }
   };
 

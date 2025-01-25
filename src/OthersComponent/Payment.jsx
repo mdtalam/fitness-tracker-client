@@ -8,6 +8,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_KEY)
 const Payment = () => {
   const location = useLocation();
   const { slot, packageName, packagePrice } = location.state || {}; // Access packagePrice
+  console.log(slot?._id)
 
   return (
     <div className="payment-page p-8 bg-gray-100 min-h-screen">
@@ -38,7 +39,7 @@ const Payment = () => {
             <span className="font-semibold">Package: </span>{packageName}
           </p>
           <p className="text-lg text-gray-700">
-            <span className="font-semibold">Price: </span>{packagePrice}
+            <span className="font-semibold">Price: $</span>{packagePrice}
           </p>
         </div>
 
@@ -46,7 +47,7 @@ const Payment = () => {
         <div className="payment-options p-6 bg-gray-50 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold text-gray-800 mb-8">Choose Your Payment Method</h3>
           <Elements stripe={stripePromise}>
-            <CheckOutForm></CheckOutForm>
+            <CheckOutForm key={slot?._id} packagePrice={packagePrice} slot={slot}></CheckOutForm>
           </Elements>
         </div>
 

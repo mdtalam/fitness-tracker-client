@@ -37,7 +37,7 @@ const TrainerDetails = () => {
   } = useQuery({
     queryKey: ["slots", id],
     queryFn: async () => {
-      const { data } = await axiosPublic(`/slots/${trainer?.email}`);
+      const { data } = await axiosPublic.get(`/slots/${trainer?.email}`);
       return data;
     },
     enabled: !!id, // Only fetch if ID is available
@@ -134,7 +134,7 @@ const TrainerDetails = () => {
             <ul className="space-y-4">
               {slots.slots.map((slot) => (
                 <li
-                  key={slot.id}
+                  key={slot._id}
                   className="p-4 border border-gray-300 rounded-lg flex justify-between items-center"
                 >
                   <div>

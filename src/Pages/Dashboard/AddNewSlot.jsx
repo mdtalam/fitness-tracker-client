@@ -67,17 +67,18 @@ const AddNewSlot = () => {
   // Submit new slot data
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const updatedSlotData = {
       ...slotData,
       days: slotData.days.map((day) => day.value), // Map the selected days to just values
       selectedClasses: slotData.selectedClasses.map((cls) => cls.value), // Only send the class IDs
       trainerName: trainerData.fullName,
       trainerEmail: trainerData.email,
+      trainerProfileImage: trainerData.profileImage, // Add the profile image
     };
-
+  
     console.log("Slot Data to Submit:", updatedSlotData); // Log the data before sending
-
+  
     try {
       const response = await axiosSecure.post("/slots", updatedSlotData);
       if (response.data.success) {
@@ -96,6 +97,7 @@ const AddNewSlot = () => {
       Swal.fire("Failed to add slot. Please try again.", "", "error");
     }
   };
+  
 
   if (!trainerData) return <p>Loading trainer data...</p>;
 

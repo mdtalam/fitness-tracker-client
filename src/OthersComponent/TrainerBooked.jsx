@@ -21,12 +21,12 @@ const TrainerBooked = () => {
   const packages = [
     {
       name: "Basic Membership",
-      price: "$10",
+      price: 10, // Integer price
       benefits: ["Access to gym facilities during regular operating hours"],
     },
     {
       name: "Standard Membership",
-      price: "$50",
+      price: 50, // Integer price
       benefits: [
         "All benefits of the basic membership",
         "Use of cardio and strength training equipment",
@@ -35,7 +35,7 @@ const TrainerBooked = () => {
     },
     {
       name: "Premium Membership",
-      price: "$100",
+      price: 100, // Integer price
       benefits: [
         "All benefits of the basic membership",
         "All benefits of the standard membership",
@@ -61,7 +61,7 @@ const TrainerBooked = () => {
           Selected Slot: {slot.slotName}
         </p>
         <p className="text-gray-600">
-          Slot time: {slot.slotTime} {slot.slotTime == 1 ? "Hour" : "Hours"}
+          Slot time: {slot.slotTime} {slot.slotTime === 1 ? "Hour" : "Hours"}
         </p>
       </div>
 
@@ -78,8 +78,9 @@ const TrainerBooked = () => {
                 <h4 className="text-xl font-semibold mb-3 text-secondary">
                   {pkg.name}
                 </h4>
+                {/* Dynamically display the price with a $ symbol */}
                 <p className="text-lg font-semibold text-secondary">
-                  {pkg.price}
+                  ${pkg.price}
                 </p>
                 <ul className="mt-4 list-inside list-none text-secondary">
                   {pkg.benefits.map((benefit, i) => (
@@ -97,7 +98,7 @@ const TrainerBooked = () => {
                   state={{
                     slot,
                     packageName: pkg.name,
-                    packagePrice: pkg.price, // Passing the package price
+                    packagePrice: pkg.price, // Pass the integer price
                   }}
                   className="bg-secondary text-white font-semibold text-lg px-6 py-3 rounded-full shadow-lg transform hover:text-secondary hover:bg-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out w-full text-center"
                 >
