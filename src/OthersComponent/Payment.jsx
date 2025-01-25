@@ -28,7 +28,7 @@ const Payment = () => {
           </p>
           <p className="text-lg text-gray-700 capitalize">
             <span className="font-semibold">Slot Time: </span>{slot?.slotTime}{" "}
-            {slot?.slotTime === 1 ? "Hour" : "Hours"}
+            {slot?.slotTime === "1" ? "Hour" : "Hours"}
           </p>
         </div>
 

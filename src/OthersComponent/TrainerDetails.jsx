@@ -140,7 +140,7 @@ const TrainerDetails = () => {
                   <div>
                     <h4 className="font-semibold capitalize">{slot.slotName}</h4>
                     <p className="text-sm text-gray-600">
-                      {slot.slotTime} {slot.slotTime == 1 ? "Hour" : "Hours"}
+                      {slot.slotTime} {slot.slotTime == "1" ? "Hour" : "Hours"}
                     </p>
                   </div>
                   <Link

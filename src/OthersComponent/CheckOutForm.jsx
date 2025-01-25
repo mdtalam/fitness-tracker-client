@@ -11,17 +11,12 @@ const CheckOutForm = ({ packagePrice, slot }) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  // console.log(slot.selectedClasses.map(class => {}))
-  // const selectClass = slot.selectedClasses[0](sClass=>{console.log(sClass)})
-  console.log(slot?.selectedClasses?.[0]);
-  console.log(slot);
 
   useEffect(() => {
     if (packagePrice > 0) {
       axiosSecure
         .post("/create-payment", { price: packagePrice })
         .then((res) => {
-          console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -34,24 +29,21 @@ const CheckOutForm = ({ packagePrice, slot }) => {
     }
 
     const card = elements.getElement(CardElement);
-
     if (card === null) {
       return;
     }
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
     if (error) {
-      console.log("[error]", error);
       setError(error.message);
       return;
     } else {
-      console.log("[paymentMethod]", paymentMethod);
       setError("");
     }
 
-    // Confirm payment
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -64,12 +56,9 @@ const CheckOutForm = ({ packagePrice, slot }) => {
       });
 
     if (confirmError) {
-      console.log("Confirm Error:", confirmError);
+      console.error("Payment Confirmation Error:", confirmError);
       return;
     }
-
-    console.log("Payment Intent:", paymentIntent);
-
 
     Swal.fire({
       title: "Payment Successful!",
@@ -78,13 +67,14 @@ const CheckOutForm = ({ packagePrice, slot }) => {
       confirmButtonText: "OK",
     });
 
-    // Save payment info in the database
+    // Save payment info and update slot & class in the backend
     const payment = {
       email: user?.email || "No email provided",
       name: user?.displayName || "Anonymous User",
       price: packagePrice || 0,
       transactionId: paymentIntent?.id || "No transaction ID",
       date: new Date(),
+      slotId: slot?._id,
       slotName: slot?.slotName || "No slot name",
       slotTime: slot?.slotTime || "No slot time",
       trainerEmail: slot?.trainerEmail || "No trainer email",
@@ -93,14 +83,42 @@ const CheckOutForm = ({ packagePrice, slot }) => {
       slotClass: slot?.selectedClasses?.[0] || "No class ID",
     };
 
-    const res = await axiosSecure.post("/payments", payment);
-    console.log("Payment Saved:", res);
+    try {
+      // Save payment and update class & slot
+      const response = await axiosSecure.patch(
+        `/classes/${slot?.selectedClasses?.[0]}/booked`,
+        {
+          slotId: slot?._id,
+          bookedBy: user?.displayName,
+          bookedUserEmail: user?.email,
+        }
+      );
 
-    
-    const classId = slot?.selectedClasses?.[0];
-    if (classId) {
-      const updateRes = await axiosSecure.patch(`/classes/${classId}/booked`);
-      console.log("Class Booked Count Updated:", updateRes);
+      console.log("Update Response:", response.data);
+
+      if (response.data.success) {
+        Swal.fire({
+          title: "Booking Successful!",
+          text: "Slot and class details updated.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        Swal.fire({
+          title: "Booking Failed!",
+          text: "Could not update the slot or class. Try again later.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      console.error("Error updating booking:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "An error occurred while updating the booking.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
