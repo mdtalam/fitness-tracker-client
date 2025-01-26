@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2"; // Import SweetAlert
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Spinner from "../../OthersComponent/Spinner";
 
 const BookedTrainer = () => {
   const { user, loading } = useAuth();
@@ -96,7 +97,7 @@ const BookedTrainer = () => {
               <p>Description: {classDetails.description || "Unavailable"}</p>
             </>
           ) : (
-            <p>Loading class details...</p>
+            <Spinner></Spinner>
           )}
           <hr className="my-2" />
 

@@ -75,9 +75,10 @@ const AddNewSlot = () => {
       trainerName: trainerData.fullName,
       trainerEmail: trainerData.email,
       trainerProfileImage: trainerData.profileImage, // Add the profile image
+      trainerId: trainerData._id, // Add the trainer's ID
     };
   
-    console.log("Slot Data to Submit:", updatedSlotData); // Log the data before sending
+    // console.log("Slot Data to Submit:", updatedSlotData); // Log the data before sending
   
     try {
       const response = await axiosSecure.post("/slots", updatedSlotData);
@@ -97,6 +98,7 @@ const AddNewSlot = () => {
       Swal.fire("Failed to add slot. Please try again.", "", "error");
     }
   };
+  
   
 
   if (!trainerData) return <p>Loading trainer data...</p>;
