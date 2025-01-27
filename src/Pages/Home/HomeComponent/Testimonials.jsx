@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 import { FaQuoteLeft } from "react-icons/fa";
 
@@ -8,57 +8,36 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import SectionTitle from "../../../Shared/SectionTitle";
 
 const Testimonials = () => {
   const swiperRef = useRef(null);
-
-  const reviews = [
-    {
-      name: "Daniel Berg",
-      position: "Founder, Some Company",
-      image: "https://via.placeholder.com/100",
-      text: "Cras sit amet urna lorem accumsan facilisis. Donec enim quam, venenatis eget purus eget, tempus pulvinar turpis.",
-    },
-    {
-      name: "Anna Smith",
-      position: "CEO, Creative Agency",
-      image: "https://via.placeholder.com/100",
-      text: "Proin quis sapien in metus congue dapibus eu facilisis erat. Integer ut justo commodo, feugiat justo nec, suscipit justo.",
-    },
-    {
-      name: "Michael Doe",
-      position: "Manager, TechCorp",
-      image: "https://via.placeholder.com/100",
-      text: "Suspendisse sollicitudin enim eu justo commodo, dapibus vel facilisis libero placerat. Ut tincidunt tincidunt erat.",
-    },
-    {
-      name: "Michael Doe",
-      position: "Manager, TechCorp",
-      image: "https://via.placeholder.com/100",
-      text: "Suspendisse sollicitudin enim eu justo commodo, dapibus vel facilisis libero placerat. Ut tincidunt tincidunt erat.",
-    },
-    {
-      name: "Michael Doe",
-      position: "Manager, TechCorp",
-      image: "https://via.placeholder.com/100",
-      text: "Suspendisse sollicitudin enim eu justo commodo, dapibus vel facilisis libero placerat. Ut tincidunt tincidunt erat.",
-    },
-    {
-      name: "Michael Doe",
-      position: "Manager, TechCorp",
-      image: "https://via.placeholder.com/100",
-      text: "Suspendisse sollicitudin enim eu justo commodo, dapibus vel facilisis libero placerat. Ut tincidunt tincidunt erat.",
-    },
-    // Add more reviews as needed
-  ];
+  const axiosPublic = useAxiosPublic();
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.navigation.init();
-      swiperRef.current.swiper.navigation.update();
-    }
-  }, []);
+    const fetchReviews = async () => {
+      try {
+        const { data } = await axiosPublic.get("/reviews");
+        setReviews(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+        setLoading(false);
+      }
+    };
+    fetchReviews();
+  }, [axiosPublic]);
+
+  if (loading) {
+    return <p>Loading reviews...</p>;
+  }
+
+  if (reviews.length === 0) {
+    return <p>No reviews available.</p>;
+  }
 
   return (
     <div className="bg-primary text-white py-16">
@@ -100,16 +79,22 @@ const Testimonials = () => {
               <SwiperSlide key={index} className="flex justify-center">
                 <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 h-[250px] max-w-md">
                   <FaQuoteLeft className="text-4xl text-primary mb-4" />
-                  <p className="mb-4">{review.text}</p>
+                  <p className="mb-4">"{review.feedback}"</p>
                   <div className="flex items-center">
                     <img
-                      src={review.image}
-                      alt={review.name}
+                      src={review.userProfileImage || "/default-profile.png"}
+                      alt={review.userName}
                       className="w-12 h-12 rounded-full mr-4"
                     />
                     <div>
-                      <h4 className="font-bold">{review.name}</h4>
-                      <p className="text-sm text-gray-600">{review.position}</p>
+                      <h4 className="font-bold">{review.userName}</h4>
+                      <p className="text-sm text-gray-600">
+                        {review.userEmail}
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-yellow-400 text-lg mr-2">★</span>
+                      <p className="text-gray-600">{review.rating}/5</p>
                     </div>
                   </div>
                 </div>

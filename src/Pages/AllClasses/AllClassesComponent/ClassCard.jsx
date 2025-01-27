@@ -7,7 +7,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 const ClassCard = ({ classData }) => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();  // Initialize useNavigate
-  const { className, details, image, _id,bookedCount} = classData;
+  const { className, details, image, _id, bookedCount } = classData;
 
   // Use useQuery hook to fetch slot info by class ID
   const { data: slots, isLoading } = useQuery({
@@ -35,8 +35,8 @@ const ClassCard = ({ classData }) => {
       {/* Class Details */}
       <div className="p-4">
         <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold mb-2">{className}</h2>
-        <p className="text-gray-600">Booked {bookedCount || "0"}</p>
+          <h2 className="text-lg font-bold mb-2">{className}</h2>
+          <p className="text-gray-600">Booked {bookedCount || "0"}</p>
         </div>
         <p className="text-gray-700 text-sm">{details}</p>
       </div>
@@ -52,7 +52,7 @@ const ClassCard = ({ classData }) => {
         ) : trainers.length > 0 ? (
           <div className="flex space-x-2">
             {/* Apply space between images */}
-            {trainers.map((slot, index) => (
+            {trainers.slice(0, 5).map((slot, index) => ( // Show only first 5 trainers
               <div key={index} className="relative flex-shrink-0">
                 {/* Trainer Image with Tooltip */}
                 <img

@@ -1,13 +1,13 @@
 import React from "react";
 import {
-    FaAward,
-    FaCalendarAlt,
-    FaChalkboardTeacher,
-    FaDumbbell,
-    FaHeartbeat,
-    FaRunning,
-    FaSpa,
-    FaUsers,
+  FaAward,
+  FaCalendarAlt,
+  FaChalkboardTeacher,
+  FaDumbbell,
+  FaHeartbeat,
+  FaRunning,
+  FaSpa,
+  FaUsers,
 } from "react-icons/fa";
 import SectionTitle from "../../../Shared/SectionTitle";
 
