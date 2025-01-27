@@ -5,7 +5,6 @@ import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import useRole from "../../Hooks/useRole";
 import Spinner from "../../OthersComponent/Spinner";
 
 const Community = () => {
@@ -13,7 +12,6 @@ const Community = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [posts, setPosts] = useState([]); // State to hold posts with updated vote counts
   const axiosSecure = useAxiosSecure();
-  const [role, isLoading] = useRole();
   const { user, loading } = useAuth();
 
   // Fetch posts with TanStack Query
@@ -84,7 +82,7 @@ const Community = () => {
     }
   };
 
-  if (loading || isLoading || dataLoading) return <Spinner />;
+  if (loading  || dataLoading) return <Spinner />;
   if (error) return <div>Error fetching posts.</div>;
 
   return (
@@ -119,15 +117,7 @@ const Community = () => {
 
               <div className="flex justify-between items-center mt-4">
                 {/* Role Badge */}
-                {role && (
-                  <span
-                    className={`px-3 py-1 rounded-full text-white ${
-                      role === "admin" ? "bg-red-500" : "bg-green-500"
-                    }`}
-                  >
-                    {role === "admin" ? "Admin" : "Trainer"}
-                  </span>
-                )}
+                <p>{post?.userInfo?.role || "Unavailable"}</p>
 
                 {/* Voting Buttons on the right */}
                 <div className="flex items-center space-x-2">

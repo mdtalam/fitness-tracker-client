@@ -27,6 +27,7 @@ import Statistics from "../Pages/Dashboard/Statistics";
 import Subscribers from "../Pages/Dashboard/Subscribers";
 import Trainers from "../Pages/Dashboard/Trainers";
 import Home from "../Pages/Home/Home";
+import ForumDetails from "../Pages/Home/HomeComponent/forumDetails";
 import UserProfile from "../Pages/UserProfile/UserProfile";
 import AdminRoute from "./AdminRoute";
 import PrivateRoutes from "./PrivateRoutes";
@@ -69,6 +70,10 @@ import TrainerRoute from "./TrainerRoute";
         {
           path: "community",
           element: <Community></Community>,
+        },
+        {
+          path: "forum/:id",
+          element: <PrivateRoutes><ForumDetails></ForumDetails></PrivateRoutes>
         },
         {
           path: "profile",
