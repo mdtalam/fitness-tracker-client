@@ -58,7 +58,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen flex flex-col items-center py-10">
       <Helmet>
-        <title>FitFusion | Profile</title>
+        <title>Dashboard | Profile</title>
       </Helmet>
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-secondary mb-6">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -59,6 +60,9 @@ const AddClass = () => {
 
   return (
     <div className="p-6 bg-gray-100">
+      <Helmet>
+        <title>Dashboard | Add Class</title>
+      </Helmet>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Add New Class

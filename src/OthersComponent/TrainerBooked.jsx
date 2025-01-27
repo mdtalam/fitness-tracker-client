@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import Spinner from "./Spinner";
@@ -52,6 +53,9 @@ const TrainerBooked = () => {
 
   return (
     <div className="trainer-booked-page p-6 bg-gray-100">
+      <Helmet>
+        <title>FitFusion | Trainer Booked</title>
+      </Helmet>
       {/* Trainer Info and Slot */}
       <div className="trainer-info p-6 bg-white shadow-md rounded-lg mb-6 my-14">
         <h2 className="text-3xl font-bold mb-4 capitalize">

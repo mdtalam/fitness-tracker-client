@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2"; // Import SweetAlert
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -115,6 +116,9 @@ const BookedTrainer = () => {
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
+      <Helmet>
+        <title>Dashboard | Booked Trainer</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-4">Booked Trainer Details</h1>
       {trainerDetails ? (
         <div className="shadow-lg mb-4 p-4 rounded-lg bg-white">

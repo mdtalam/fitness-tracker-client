@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -64,6 +65,9 @@ const ManageSlots = () => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+      <Helmet>
+        <title>Dashboard | Manage Slots</title>
+      </Helmet>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-8">Manage Slots</h2>
         {slots.length === 0 ? (

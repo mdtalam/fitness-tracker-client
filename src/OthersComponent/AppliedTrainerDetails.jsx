@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import Spinner from "./Spinner";
 
 const AppliedTrainerDetails = () => {
   const { id } = useParams();
@@ -82,15 +84,13 @@ const AppliedTrainerDetails = () => {
     });
   };
 
-  if (!trainer)
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
-      </div>
-    );
+  if (!trainer) return <Spinner></Spinner>;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4 sm:p-8">
+      <Helmet>
+        <title>Dashboard | AppliedTrainerDetails</title>
+      </Helmet>
       <div className="bg-white shadow-lg rounded-lg max-w-4xl w-full p-6">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Trainer Details

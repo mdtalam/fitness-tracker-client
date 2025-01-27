@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -73,6 +74,9 @@ const AddForum = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <Helmet>
+        <title>Dashboard | Add Forum</title>
+      </Helmet>
       <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-2">ADD NEW FORUM</h2>
         <p className="text-gray-500 mb-8">In here you can add new forum</p>

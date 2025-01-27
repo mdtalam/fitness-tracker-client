@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import {
   FaCaretRight,
   FaFacebook,
@@ -39,18 +40,18 @@ const TrainerDetails = () => {
       const { data } = await axiosPublic.get(`/slots/${trainer?.email}`);
       return data;
     },
-    enabled: !!trainer?.email, 
+    enabled: !!trainer?.email,
   });
 
- 
   if (trainerLoading) return <Spinner />;
 
-
-  if (trainerError)
-    return <div>No slots available.</div>;
+  if (trainerError) return <div>No slots available.</div>;
 
   return (
     <div>
+      <Helmet>
+        <title>FitFusion | Trainer Details</title>
+      </Helmet>
       <div className="flex flex-col md:flex-row gap-10 bg-gray-100">
         {/* Trainer Info Section */}
         <div className="w-full md:w-2/3 mx-2 p-6 bg-white my-14 shadow-md rounded-lg">

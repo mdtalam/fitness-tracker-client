@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import {
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Chart as ChartJS,
-    Legend,
-    LinearScale,
-    Tooltip,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Tooltip,
 } from "chart.js";
 import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
+import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
@@ -76,6 +77,9 @@ const Balance = () => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+      <Helmet>
+        <title>Dashboard | Balance</title>
+      </Helmet>
       <div className="max-w-6xl mx-auto">
         {/* Overview Section */}
         <div className="bg-white shadow rounded-lg p-6 mb-8 flex justify-between items-center">

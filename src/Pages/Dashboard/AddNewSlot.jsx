@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Select from "react-select";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
@@ -110,6 +111,9 @@ const AddNewSlot = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-secondary rounded-lg shadow-md">
+      <Helmet>
+        <title>Dashboard | Add New Slot</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-6 text-center text-primary">
         Add New Slot
       </h2>

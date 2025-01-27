@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Select from "react-select";
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
@@ -81,7 +82,9 @@ const BeATrainer = () => {
   };
 
   const handleAvailableTimeChange = (selectedOptions) => {
-    const selectedValues = selectedOptions ? selectedOptions.map((option) => option.value) : [];
+    const selectedValues = selectedOptions
+      ? selectedOptions.map((option) => option.value)
+      : [];
     setFormData({ ...formData, availableTime: selectedValues });
   };
 
@@ -136,6 +139,9 @@ const BeATrainer = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-secondary rounded-lg shadow-md mt-6">
+      <Helmet>
+        <title>FitFusion | Be A Trainer</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-6 text-center text-primary">
         Become a Trainer
       </h2>

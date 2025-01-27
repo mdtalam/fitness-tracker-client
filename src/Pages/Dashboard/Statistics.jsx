@@ -76,7 +76,7 @@ const Statistics = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <Helmet>
-        <title>FitFusion | Dashboard Statistics</title>
+        <title>Dashboard | Statistics</title>
       </Helmet>
       {role === "admin" && (
         <>

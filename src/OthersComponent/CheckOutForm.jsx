@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
@@ -27,12 +28,12 @@ const CheckOutForm = ({ packagePrice, slot }) => {
     if (!stripe || !elements) {
       return;
     }
-  
+
     const card = elements.getElement(CardElement);
     if (card === null) {
       return;
     }
-  
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -43,7 +44,7 @@ const CheckOutForm = ({ packagePrice, slot }) => {
     } else {
       setError("");
     }
-  
+
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -54,19 +55,19 @@ const CheckOutForm = ({ packagePrice, slot }) => {
           },
         },
       });
-  
+
     if (confirmError) {
       console.error("Payment Confirmation Error:", confirmError);
       return;
     }
-  
+
     Swal.fire({
       title: "Payment Successful!",
       text: `Your transaction ID is: ${paymentIntent.id}`,
       icon: "success",
       confirmButtonText: "OK",
     });
-  
+
     // Save payment info to the backend
     const payment = {
       email: user?.email || "No email provided",
@@ -82,14 +83,14 @@ const CheckOutForm = ({ packagePrice, slot }) => {
       slotDay: slot?.days?.length > 0 ? slot.days : ["No days selected"],
       slotClass: slot?.selectedClasses?.[0] || "No class ID",
     };
-  
+
     try {
       // Send payment info to the backend to save it in the database
       const response = await axiosSecure.post("/payments", payment);
-  console.log(response.data.insertedId)
+      console.log(response.data.insertedId);
       if (response.data.insertedId) {
         console.log("Payment saved:", response.data);
-        
+
         // Proceed with booking and updating slot & class
         const updateResponse = await axiosSecure.patch(
           `/classes/${slot?.selectedClasses?.[0]}/booked`,
@@ -99,9 +100,9 @@ const CheckOutForm = ({ packagePrice, slot }) => {
             bookedUserEmail: user?.email,
           }
         );
-  
+
         console.log("Update Response:", updateResponse.data);
-  
+
         if (updateResponse.data.success) {
           Swal.fire({
             title: "Booking Successful!",
@@ -135,10 +136,12 @@ const CheckOutForm = ({ packagePrice, slot }) => {
       });
     }
   };
-  
 
   return (
     <div>
+      <Helmet>
+        <title>FitFusion | CheckOut</title>
+      </Helmet>
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
