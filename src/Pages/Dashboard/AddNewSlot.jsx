@@ -3,6 +3,7 @@ import Select from "react-select";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Spinner from "../../OthersComponent/Spinner";
 
 const AddNewSlot = () => {
   const { user } = useAuth();
@@ -105,7 +106,7 @@ const AddNewSlot = () => {
     }
   };
 
-  if (!trainerData) return <p>Loading trainer data...</p>;
+  if (!trainerData) return <Spinner></Spinner>;
 
   return (
     <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-secondary rounded-lg shadow-md">

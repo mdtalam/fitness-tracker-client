@@ -39,15 +39,15 @@ const TrainerDetails = () => {
       const { data } = await axiosPublic.get(`/slots/${trainer?.email}`);
       return data;
     },
-    enabled: !!trainer?.email, // Only fetch if trainer's email is available
+    enabled: !!trainer?.email, 
   });
 
-  // Handle loading states
-  if (trainerLoading || slotsLoading) return <Spinner />;
+ 
+  if (trainerLoading) return <Spinner />;
 
-  // Handle error states
-  if (trainerError || slotsError)
-    return <div>Error fetching trainer or slot details.</div>;
+
+  if (trainerError)
+    return <div>No slots available.</div>;
 
   return (
     <div>
@@ -127,7 +127,11 @@ const TrainerDetails = () => {
         {/* Slot Section */}
         <div className="w-full md:w-1/3 p-6 bg-white my-14 mx-2 shadow-md rounded-lg">
           <h3 className="text-xl font-bold mb-4">Available Slots</h3>
-          {slots?.slots?.length > 0 ? (
+          {slotsLoading ? (
+            <Spinner />
+          ) : slotsError ? (
+            <div>No slots available.</div>
+          ) : slots?.slots?.length > 0 ? (
             <ul className="space-y-4">
               {slots.slots.map((slot) => (
                 <li
