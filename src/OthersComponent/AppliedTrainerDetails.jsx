@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2"; // Import SweetAlert2
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const AppliedTrainerDetails = () => {
@@ -12,9 +13,7 @@ const AppliedTrainerDetails = () => {
   useEffect(() => {
     const fetchTrainerDetails = async () => {
       try {
-        const response = await axiosSecure.get(
-          `/appliedTrainings/${id}`
-        );
+        const response = await axiosSecure.get(`/appliedTrainings/${id}`);
         setTrainer(response.data);
       } catch (error) {
         console.error("Error fetching trainer details:", error);
@@ -26,29 +25,61 @@ const AppliedTrainerDetails = () => {
 
   const handleConfirm = async () => {
     try {
-      const response = await axiosSecure.put(
-        `/confirmTrainer/${id}`
-      );
-  
+      const response = await axiosSecure.put(`/confirmTrainer/${id}`);
+
       if (response.data.success) {
-        alert("Trainer confirmed successfully!");
-        navigate("/dashboard/allTrainer");
+        Swal.fire({
+          title: "Trainer Confirmed!",
+          text: "The trainer has been confirmed successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/dashboard/allTrainer");
+        });
       } else {
-        alert("Failed to confirm trainer.");
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to confirm trainer.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     } catch (error) {
       console.error("Error confirming trainer:", error);
-      alert("An error occurred. Please try again.");
+      Swal.fire({
+        title: "Error!",
+        text: "An error occurred. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
   const handleReject = async () => {
-    try {
-      await axiosSecure.delete(`/rejectTrainer/${id}`);
-      navigate("/dashboard/appliedTrainer");
-    } catch (error) {
-      console.error("Error rejecting trainer:", error);
-    }
+    // Show confirmation dialog for rejection
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to reject this trainer's application?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Reject",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axiosSecure.delete(`/rejectTrainer/${id}`);
+          navigate("/dashboard/appliedTrainer");
+        } catch (error) {
+          console.error("Error rejecting trainer:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "An error occurred while rejecting the trainer.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      }
+    });
   };
 
   if (!trainer)

@@ -3,6 +3,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Spinner from "../../OthersComponent/Spinner";
 
 const ManageSlots = () => {
   const { user } = useAuth();
@@ -43,7 +44,7 @@ const ManageSlots = () => {
               icon: "success",
               confirmButtonText: "OK",
             });
-            refetch(); // Refetch the slots list to update the UI
+            refetch(); // Refetch the slots list only after successful deletion
           }
         } catch (error) {
           console.error("Error deleting slot:", error);
@@ -57,14 +58,9 @@ const ManageSlots = () => {
       }
     });
   };
+  
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg text-gray-600 animate-pulse">Loading slots...</p>
-      </div>
-    );
-  }
+  if (isLoading) <Spinner></Spinner>
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
