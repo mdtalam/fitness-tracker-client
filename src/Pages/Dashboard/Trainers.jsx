@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Spinner from "../../OthersComponent/Spinner";
 import SectionTitle from "../../Shared/SectionTitle";
@@ -35,7 +36,13 @@ const Trainer = () => {
       refetch();
 
       // Optionally, show feedback
-      alert("Trainer deleted and role updated successfully!");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Trainer deleted and role updated successfully!",
+        showConfirmButton: false,
+        timer: 1500
+      });
 
     } catch (error) {
       console.error("Error deleting trainer or updating role:", error);

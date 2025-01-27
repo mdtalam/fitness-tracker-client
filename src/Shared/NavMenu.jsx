@@ -85,34 +85,39 @@ const NavMenu = () => {
           Community
         </NavLink>
       </Typography>
-      <Typography as="li" variant="small" className="p-1 font-normal">
-        <NavLink
-          to="dashboard"
-          className={({ isActive }) =>
-            `flex items-center px-2 py-1 rounded ${
-              isActive
-                ? "bg-secondary text-white"
-                : "text-secondary hover:text-white"
-            }`
-          }
-        >
-          Dashboard
-        </NavLink>
-      </Typography>
-      <Typography as="li" variant="small" className="p-1 font-normal">
-        <NavLink
-          to="profile"
-          className={({ isActive }) =>
-            `flex items-center px-2 py-1 rounded ${
-              isActive
-                ? "bg-secondary text-white"
-                : "text-secondary hover:text-white"
-            }`
-          }
-        >
-          Profile
-        </NavLink>
-      </Typography>
+      {
+        user && (<Typography as="li" variant="small" className="p-1 font-normal">
+          <NavLink
+            to="dashboard"
+            className={({ isActive }) =>
+              `flex items-center px-2 py-1 rounded ${
+                isActive
+                  ? "bg-secondary text-white"
+                  : "text-secondary hover:text-white"
+              }`
+            }
+          >
+            Dashboard
+          </NavLink>
+        </Typography>)
+      }
+      {
+        user && (<Typography as="li" variant="small" className="p-1 font-normal">
+          <NavLink
+            to="profile"
+            className={({ isActive }) =>
+              `flex items-center px-2 py-1 rounded ${
+                isActive
+                  ? "bg-secondary text-white"
+                  : "text-secondary hover:text-white"
+              }`
+            }
+          >
+            Profile
+          </NavLink>
+        </Typography>)
+      }
+      
     </ul>
   );
 
