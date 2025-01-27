@@ -20,20 +20,43 @@ const Subscribers = () => {
   if (isLoading) return <Spinner />;
 
   const handleDelete = (subscriberId) => {
-    // Add your delete logic here, like calling an API to delete the trainer
-    console.log(`Delete trainer with id: ${subscriberId}`);
+    // Add your delete logic here, like calling an API to delete the subscriber
+    console.log(`Delete subscriber with id: ${subscriberId}`);
     refetch();
   };
 
-
   return (
-    <div className="my-14">
+    <div className="my-14 px-4 sm:px-6 lg:px-8">
       <Helmet>
         <title>Dashboard | Subscribers</title>
       </Helmet>
       <SectionTitle title={"All Subscribers"} />
-      <p className="text-center font-bold text-lg mb-4">Total Subscribers: {subscribers.length}</p>
-      <div className="overflow-x-auto">
+      <p className="text-center font-bold text-lg mb-4">
+        Total Subscribers: {subscribers.length}
+      </p>
+
+      {/* Mobile and Tablet View: Card Layout */}
+      <div className="block sm:hidden">
+        {subscribers?.map((subscriber, index) => (
+          <div
+            key={subscriber._id}
+            className="bg-white shadow-md p-4 mb-4 rounded-lg border border-gray-300"
+          >
+            <p className="font-semibold text-gray-700">Subscriber {index + 1}</p>
+            <p className="text-gray-600">Name: {subscriber?.name}</p>
+            <p className="text-gray-600">Email: {subscriber?.email}</p>
+            <button
+              onClick={() => handleDelete(subscriber._id)}
+              className="text-red-500 hover:text-red-700 mt-2"
+            >
+              <RiDeleteBin2Fill />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Tablet and Desktop View: Table Layout */}
+      <div className="overflow-x-auto hidden sm:block">
         <table className="min-w-full table-auto bg-white border border-gray-300 shadow-md">
           <thead>
             <tr className="bg-gray-100">

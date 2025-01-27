@@ -59,14 +59,16 @@ const AppliedTrainerDetails = () => {
     );
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4 sm:p-8">
       <div className="bg-white shadow-lg rounded-lg max-w-4xl w-full p-6">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Trainer Details
         </h1>
+
+        {/* Trainer Profile and Details */}
         <div className="flex flex-col md:flex-row items-center gap-6 pb-6">
           {/* Trainer Profile Image */}
-          <div className="w-[700px] h-[370px]">
+          <div className="w-full md:w-[400px] h-[300px] sm:h-[370px]">
             <img
               src={trainer.profileImage}
               alt={trainer.fullName}
@@ -105,11 +107,10 @@ const AppliedTrainerDetails = () => {
           </div>
         </div>
 
-        <div>
-        <h1 className="text-xl font-bold text-center">Biography</h1>
-        <p className="text-lg">
-          {trainer.biography}
-        </p>
+        {/* Biography Section */}
+        <div className="pb-6">
+          <h1 className="text-xl font-bold text-center">Biography</h1>
+          <p className="text-lg">{trainer.biography}</p>
         </div>
 
         {/* Action Buttons */}

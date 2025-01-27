@@ -25,7 +25,7 @@ const FeaturedClasses = () => {
 
   return (
     <div className="bg-gray-100 py-14">
-      <div className="container mx-auto pl-8">
+      <div className="container mx-auto md:pl-8">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
           Featured Classes
         </h2>

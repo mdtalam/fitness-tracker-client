@@ -40,6 +40,9 @@ const BookedTrainer = () => {
         trainerName: trainerDetails?.trainerName,
         feedback: reviewData.feedback,
         rating: reviewData.rating,
+        userEmail: user?.email,
+        userName: user?.displayName,
+        userProfileImage: user?.photoURL,
       };
 
       // Submit the review
@@ -79,6 +82,36 @@ const BookedTrainer = () => {
       fetchTrainerDetails();
     }
   }, [loading]);
+
+  // Star rating component
+  const StarRating = ({ rating, onChange }) => {
+    const handleStarClick = (index) => {
+      onChange(index + 1); // 1-based index for star rating
+    };
+
+    return (
+      <div className="flex">
+        {[...Array(5)].map((_, index) => (
+          <svg
+            key={index}
+            xmlns="http://www.w3.org/2000/svg"
+            fill={index < rating ? "gold" : "none"}
+            stroke="currentColor"
+            strokeWidth={1.5}
+            className="w-6 h-6 cursor-pointer"
+            viewBox="0 0 24 24"
+            onClick={() => handleStarClick(index)}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 17.27l6.18 3.73-4.68-7.73 6.5-.27L12 3l-2.18 10.27-6.5.27 4.68 7.73L12 17.27z"
+            />
+          </svg>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="p-4 max-w-4xl mx-auto">

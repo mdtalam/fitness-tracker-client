@@ -34,14 +34,20 @@ const AddNewSlot = () => {
 
     const fetchClasses = async () => {
       try {
-        const response = await axiosSecure.get("/classes");
-        if (response.data) {
-          setClasses(response.data);
+        const response = await axiosSecure.get("/all-classes");
+        if (response.data.success && Array.isArray(response.data.data)) {
+          setClasses(response.data.data); // Access the nested `data` array
+        } else {
+          console.error("Classes response is not valid:", response.data);
+          setClasses([]); // Default to an empty array if the response is invalid
         }
       } catch (error) {
         console.error("Error fetching classes:", error);
+        setClasses([]); // Default to an empty array in case of error
       }
     };
+    
+    
 
     if (user?.email) {
       fetchTrainerData();
@@ -67,7 +73,7 @@ const AddNewSlot = () => {
   // Submit new slot data
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const updatedSlotData = {
       ...slotData,
       days: slotData.days.map((day) => day.value), // Map the selected days to just values
@@ -77,9 +83,9 @@ const AddNewSlot = () => {
       trainerProfileImage: trainerData.profileImage, // Add the profile image
       trainerId: trainerData._id, // Add the trainer's ID
     };
-  
+
     // console.log("Slot Data to Submit:", updatedSlotData); // Log the data before sending
-  
+
     try {
       const response = await axiosSecure.post("/slots", updatedSlotData);
       if (response.data.success) {
@@ -98,8 +104,6 @@ const AddNewSlot = () => {
       Swal.fire("Failed to add slot. Please try again.", "", "error");
     }
   };
-  
-  
 
   if (!trainerData) return <p>Loading trainer data...</p>;
 
@@ -219,11 +223,15 @@ const AddNewSlot = () => {
           <label className="block font-semibold mb-2">Classes Include *</label>
           <Select
             isMulti
-            options={classes.map((cls) => ({
-              value: cls._id,
-              label: cls.className,
-              ...cls, // Include full class data
-            }))}
+            options={
+              Array.isArray(classes)
+                ? classes.map((cls) => ({
+                    value: cls._id,
+                    label: cls.className,
+                    ...cls, // Include full class data
+                  }))
+                : []
+            }
             value={slotData.selectedClasses}
             onChange={handleClassesChange}
             className="w-full"

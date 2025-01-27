@@ -2,17 +2,18 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { FaEye } from "react-icons/fa"; // Eye icon
 import useAuth from "../../Hooks/useAuth";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Spinner from "../../OthersComponent/Spinner";
 
 const ActivityLog = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   // Fetch trainers using TanStack Query
   const { data: trainers, error, isLoading } = useQuery({
     queryKey: ["trainers", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/trainers/email/${user?.email}`);
+      const { data } = await axiosPublic.get(`/trainers/email/${user?.email}`);
       return data; // Data is a single object
     },
     enabled: !!user?.email, // Ensure query only runs when user email is available
@@ -23,11 +24,11 @@ const ActivityLog = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner></Spinner>;
   }
 
   if (error) {
-    return <div>Error fetching data</div>;
+    return <div>No logs found.</div>;
   }
 
   // Ensure trainers is an array for consistency
@@ -65,7 +66,7 @@ const ActivityLog = () => {
           </table>
         ) : (
           <div className="text-center text-gray-600 py-4">
-            No trainer requests found.
+            No logs found.
           </div>
         )}
       </div>

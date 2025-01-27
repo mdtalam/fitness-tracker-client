@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import avatarImg from '../../src/assets/avatar.jpg';
+import avatarImg from "../../src/assets/avatar.jpg";
 import useAuth from "../Hooks/useAuth";
 
 const NavMenu = () => {
@@ -136,7 +136,7 @@ const NavMenu = () => {
                   <img
                     src={user && user?.photoURL ? user.photoURL : avatarImg}
                     alt="Profile"
-                    className="w-10 h-10 rounded-full border-2 border-secondary object-cover"
+                    className="hidden lg:inline-block w-10 h-10 rounded-full border-2 border-secondary object-cover"
                   />
                 </Link>
                 {/* Sign Out Button */}
@@ -144,7 +144,7 @@ const NavMenu = () => {
                   onClick={handleLogOut}
                   variant="text"
                   size="sm"
-                  className="bg-secondary text-white hover:text-black"
+                  className="hidden lg:inline-block bg-secondary text-white hover:text-black"
                 >
                   Sign Out
                 </Button>
@@ -212,28 +212,54 @@ const NavMenu = () => {
         </div>
         <MobileNav open={openNav}>
           {navList}
-          <div className="flex items-center justify-center gap-x-1">
-            <Link to="/login">
-              <Button
-                fullWidth
-                variant="text"
-                size="sm"
-                className="text-secondary bg-white hover:text-white"
-              >
-                <span>Log In</span>
-              </Button>
-            </Link>
-            <Link to="/sign-up">
-              <Button
-                fullWidth
-                variant="gradient"
-                size="sm"
-                className="bg-secondary text-white hover:text-black"
-              >
-                <span>Sign Up</span>
-              </Button>
-            </Link>
-          </div>
+          {user ? (
+            <>
+              <div className="flex items-center gap-3">
+                {/* Profile Image */}
+                <Link to="/profile">
+                  <img
+                    src={user && user?.photoURL ? user.photoURL : avatarImg}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full border-2 border-secondary object-cover"
+                  />
+                </Link>
+                {/* Sign Out Button */}
+                <Button
+                  onClick={handleLogOut}
+                  variant="text"
+                  size="sm"
+                  className="bg-secondary text-white hover:text-black"
+                >
+                  Sign Out
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center justify-center gap-x-1">
+                <Link to="/login">
+                  <Button
+                    fullWidth
+                    variant="text"
+                    size="sm"
+                    className="text-secondary bg-white hover:text-white"
+                  >
+                    <span>Log In</span>
+                  </Button>
+                </Link>
+                <Link to="/sign-up">
+                  <Button
+                    fullWidth
+                    variant="gradient"
+                    size="sm"
+                    className="bg-secondary text-white hover:text-black"
+                  >
+                    <span>Sign Up</span>
+                  </Button>
+                </Link>
+              </div>
+            </>
+          )}
         </MobileNav>
       </Navbar>
     </div>

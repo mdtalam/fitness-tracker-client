@@ -84,7 +84,7 @@ const TrainerBooked = () => {
                 </p>
                 <ul className="mt-4 list-inside list-none text-secondary">
                   {pkg.benefits.map((benefit, i) => (
-                    <li key={i} className="text-sm flex items-center">
+                    <li key={i} className="text-sm flex items-center mb-2">
                       <span className="text-green-500 mr-2">✔</span> {benefit}
                     </li>
                   ))}

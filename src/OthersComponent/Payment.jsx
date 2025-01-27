@@ -8,7 +8,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_KEY)
 const Payment = () => {
   const location = useLocation();
   const { slot, packageName, packagePrice } = location.state || {}; // Access packagePrice
-  console.log(slot?._id)
 
   return (
     <div className="payment-page p-8 bg-gray-100 min-h-screen">

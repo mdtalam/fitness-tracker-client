@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Spinner from "../../../OthersComponent/Spinner";
@@ -59,29 +58,6 @@ const ForumDetails = () => {
           <p className="text-gray-600">{post.userInfo.name} ({post.userInfo.role})</p>
         </div>
 
-        {/* Vote Buttons */}
-        <div className="mt-8 flex items-center gap-4">
-          <button
-            onClick={() => !hasVoted("upvote") && handleVote("upvote")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-              hasVoted("upvote") ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 text-white"
-            }`}
-            disabled={hasVoted("upvote")}
-          >
-            {hasVoted("upvote") ? <AiFillLike /> : <AiOutlineLike />}
-            Upvote ({post.upvotes?.length || 0})
-          </button>
-          <button
-            onClick={() => !hasVoted("downvote") && handleVote("downvote")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-              hasVoted("downvote") ? "bg-gray-400 cursor-not-allowed" : "bg-red-500 hover:bg-red-600 text-white"
-            }`}
-            disabled={hasVoted("downvote")}
-          >
-            {hasVoted("downvote") ? <AiFillDislike /> : <AiOutlineDislike />}
-            Downvote ({post.downvotes?.length || 0})
-          </button>
-        </div>
       </div>
     </div>
   );

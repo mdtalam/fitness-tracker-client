@@ -20,11 +20,29 @@ const AppliedTrainer = () => {
 
   return (
     <div className="container mx-auto p-4">
-        <Helmet>
+      <Helmet>
         <title>Dashboard | Applied Trainers</title>
       </Helmet>
       <SectionTitle title={"Applied Trainers"} />
-      <div className="overflow-x-auto">
+      
+      {/* Mobile View: Cards Layout */}
+      <div className="block sm:hidden">
+        {trainers.map((trainer) => (
+          <div key={trainer._id} className="bg-white shadow-md p-4 mb-4 rounded-lg border border-gray-300">
+            <p className="font-semibold text-gray-700">Name: {trainer.fullName}</p>
+            <p className="text-gray-600">Email: {trainer.email}</p>
+            <p className="text-gray-600">Status: {trainer.status}</p>
+            <Link to={`/dashboard/trainer-details/${trainer._id}`}>
+              <button className="mt-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">
+                View Details
+              </button>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Tablet and Desktop View: Table Layout */}
+      <div className="overflow-x-auto hidden sm:block">
         <table className="min-w-full table-auto bg-white border border-gray-300 shadow-md">
           <thead>
             <tr className="bg-gray-100">

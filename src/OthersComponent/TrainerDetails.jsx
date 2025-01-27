@@ -7,13 +7,12 @@ import {
   FaLinkedin,
   FaTwitter,
 } from "react-icons/fa";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import Spinner from "./Spinner";
 
 const TrainerDetails = () => {
   const { id } = useParams(); // Get the trainer's ID from the URL
-  const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
 
   // Fetch trainer details
@@ -40,26 +39,26 @@ const TrainerDetails = () => {
       const { data } = await axiosPublic.get(`/slots/${trainer?.email}`);
       return data;
     },
-    enabled: !!id, // Only fetch if ID is available
+    enabled: !!trainer?.email, // Only fetch if trainer's email is available
   });
 
-
   // Handle loading states
-  if (trainerLoading || slotsLoading) return <Spinner></Spinner>;
+  if (trainerLoading || slotsLoading) return <Spinner />;
 
   // Handle error states
-  if (trainerError || slotsError) return <Spinner></Spinner>;
+  if (trainerError || slotsError)
+    return <div>Error fetching trainer or slot details.</div>;
 
   return (
     <div>
-      <div className="flex gap-10 bg-gray-100">
-        <div className="w-2/3 mx-2 p-6 bg-white my-14 shadow-md rounded-lg">
-          {/* Trainer Info Section */}
+      <div className="flex flex-col md:flex-row gap-10 bg-gray-100">
+        {/* Trainer Info Section */}
+        <div className="w-full md:w-2/3 mx-2 p-6 bg-white my-14 shadow-md rounded-lg">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <img
               src={trainer?.profileImage}
               alt={trainer?.fullName}
-              className="w-96 h-96 object-cover rounded-lg shadow-lg"
+              className="w-full md:w-96 h-96 object-cover rounded-lg shadow-lg"
             />
             <div>
               <h1 className="text-3xl mb-6 font-bold">{trainer?.fullName}</h1>
@@ -83,7 +82,7 @@ const TrainerDetails = () => {
                 <h3 className="text-lg font-semibold mb-4">
                   Connect with {trainer?.fullName}:
                 </h3>
-                <div className="flex items-center gap-4">
+                <div className="flex gap-4 justify-center md:justify-start">
                   <a
                     href="https://facebook.com"
                     target="_blank"
@@ -126,11 +125,9 @@ const TrainerDetails = () => {
         </div>
 
         {/* Slot Section */}
-        <div className="w-1/3 p-6 bg-white my-14 mx-2 shadow-md rounded-lg">
+        <div className="w-full md:w-1/3 p-6 bg-white my-14 mx-2 shadow-md rounded-lg">
           <h3 className="text-xl font-bold mb-4">Available Slots</h3>
-          {slotsLoading ? (
-            <Spinner />
-          ) : slots?.slots?.length > 0 ? (
+          {slots?.slots?.length > 0 ? (
             <ul className="space-y-4">
               {slots.slots.map((slot) => (
                 <li
@@ -138,16 +135,24 @@ const TrainerDetails = () => {
                   className="p-4 border border-gray-300 rounded-lg flex justify-between items-center"
                 >
                   <div>
-                    <h4 className="font-semibold capitalize">{slot.slotName}</h4>
+                    <h4 className="font-semibold capitalize">
+                      {slot.slotName}
+                    </h4>
                     <p className="text-sm text-gray-600">
-                      {slot.slotTime} {slot.slotTime == "1" ? "Hour" : "Hours"}
+                      {slot.slotTime} {slot.slotTime === "1" ? "Hour" : "Hours"}
                     </p>
                   </div>
-                  <Link
-                    to={`/bookedPage/${slot._id}`}
-                    className="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-6 py-3 rounded-full shadow-md transform hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
-                  >
-                    Book Now
+                  <Link to={`/bookedPage/${slot._id}`}>
+                    <button
+                      disabled={slot.booked} // Disable button if slot is booked
+                      className={`${
+                        slot.booked
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-gradient-to-r from-primary to-secondary text-white hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out"
+                      } font-semibold px-6 py-3 rounded-full shadow-md`}
+                    >
+                      {slot.booked ? "Unavailable" : "Book Now"}
+                    </button>
                   </Link>
                 </li>
               ))}
@@ -168,15 +173,12 @@ const TrainerDetails = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        {/* Overlay for better text visibility */}
         <div className="absolute inset-0 bg-black bg-opacity-50 rounded-xl"></div>
-
-        {/* Content */}
         <div className="relative z-10">
           <h3 className="text-3xl font-semibold text-white mb-4">
             Join Our Trainer Community
           </h3>
-          <p className="text-lg text-gray-200 mb-4 pb-2">
+          <p className="hidden md:block text-lg text-gray-200 mb-4 pb-2">
             Passionate about fitness? Become a part of our team and help others
             achieve their fitness goals.
           </p>

@@ -77,20 +77,26 @@ const Testimonials = () => {
           >
             {reviews.map((review, index) => (
               <SwiperSlide key={index} className="flex justify-center">
-                <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 h-[250px] max-w-md">
+                <div className="bg-white text-gray-800 rounded-lg shadow-lg p-6 h-[250px] max-w-md flex flex-col">
                   <FaQuoteLeft className="text-4xl text-primary mb-4" />
-                  <p className="mb-4">"{review.feedback}"</p>
-                  <div className="flex items-center">
-                    <img
-                      src={review.userProfileImage || "/default-profile.png"}
-                      alt={review.userName}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
-                    <div>
-                      <h4 className="font-bold">{review.userName}</h4>
-                      <p className="text-sm text-gray-600">
-                        {review.userEmail}
-                      </p>
+                  <div className="flex-1 overflow-hidden">
+                    <p className="mb-4 text-ellipsis overflow-hidden whitespace-nowrap">
+                      "{review.feedback}"
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <img
+                        src={review.userProfileImage || "/default-profile.png"}
+                        alt={review.userName}
+                        className="w-12 h-12 rounded-full mr-4"
+                      />
+                      <div>
+                        <h4 className="font-bold">{review.userName}</h4>
+                        <p className="text-sm text-gray-600">
+                          {review.userEmail}
+                        </p>
+                      </div>
                     </div>
                     <div className="flex items-center">
                       <span className="text-yellow-400 text-lg mr-2">★</span>
@@ -113,9 +119,6 @@ const Testimonials = () => {
             </div>
           </div>
         </div>
-        {/* <div className="text-center mt-8">
-          <button className="text-white underline">See All Reviews</button>
-        </div> */}
       </div>
     </div>
   );

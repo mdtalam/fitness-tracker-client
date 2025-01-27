@@ -58,9 +58,17 @@ const Community = () => {
       const updatedPosts = posts.map((post) => {
         if (post._id === postId) {
           if (voteType === "upvote") {
-            post.upvotes.push(userId); // Add userId to upvotes
+            // Add userId to upvotes if not already present
+            if (!post.upvotes.includes(userId)) {
+              post.upvotes.push(userId);
+              post.upvoteCount += 1;
+            }
           } else if (voteType === "downvote") {
-            post.downvotes.push(userId); // Add userId to downvotes
+            // Add userId to downvotes if not already present
+            if (!post.downvotes.includes(userId)) {
+              post.downvotes.push(userId);
+              post.downvoteCount += 1;
+            }
           }
         }
         return post;
@@ -71,7 +79,7 @@ const Community = () => {
       // Call API to persist vote
       await axiosSecure.put(endpoint, { userId });
 
-      // Refetch data after voting
+      // Refetch data after voting to sync with the server
       refetch();
     } catch (error) {
       Swal.fire({
@@ -82,32 +90,34 @@ const Community = () => {
     }
   };
 
-  if (loading  || dataLoading) return <Spinner />;
+  if (loading || dataLoading) return <Spinner />;
   if (error) return <div>Error fetching posts.</div>;
 
   return (
-    <div className="min-h-screen p-8 bg-gray-50">
+    <div className="min-h-screen p-6 sm:p-8 bg-gray-50">
       <Helmet>
         <title>FitFusion | Community</title>
       </Helmet>
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">Forum</h2>
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center sm:text-left">
+        Forum
+      </h2>
 
       {/* Post List */}
       <div className="space-y-6">
         {posts.map((post) => (
           <div
             key={post._id}
-            className="bg-white shadow-lg rounded-lg p-6 flex space-x-6 h-auto min-h-[300px]"
+            className="bg-white shadow-lg rounded-lg p-6 flex flex-col sm:flex-row space-x-0 sm:space-x-6 h-auto min-h-[300px]"
           >
             {/* Cover Image and Text */}
-            <div className="w-1/3">
+            <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
               <img
                 src={post.image || "https://via.placeholder.com/150"} // Add default image if not available
                 alt="Cover"
                 className="w-full object-cover rounded-lg"
               />
             </div>
-            <div className="w-2/3 flex flex-col justify-between">
+            <div className="w-full sm:w-2/3 flex flex-col justify-between">
               <div>
                 <h3 className="text-2xl font-semibold text-gray-800">
                   {post.forumTitle}
@@ -117,7 +127,7 @@ const Community = () => {
 
               <div className="flex justify-between items-center mt-4">
                 {/* Role Badge */}
-                <p>{post?.userInfo?.role || "Unavailable"}</p>
+                <p className="text-sm sm:text-base">{post?.userInfo?.role || "Unavailable"}</p>
 
                 {/* Voting Buttons on the right */}
                 <div className="flex items-center space-x-2">
@@ -126,14 +136,14 @@ const Community = () => {
                     onClick={() => handleVote(post._id, "upvote")}
                   >
                     <FaThumbsUp />{" "}
-                    <span>{post.upvotes ? post.upvotes.length : 0}</span> {/* Vote count */}
+                    <span>{post.upvoteCount ? post.upvoteCount : 0}</span> {/* Vote count */}
                   </button>
                   <button
                     className="flex items-center space-x-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={() => handleVote(post._id, "downvote")}
                   >
                     <FaThumbsDown />{" "}
-                    <span>{post.downvotes ? post.downvotes.length : 0}</span> {/* Vote count */}
+                    <span>{post.downvoteCount ? post.downvoteCount : 0}</span> {/* Vote count */}
                   </button>
                 </div>
               </div>
@@ -152,7 +162,7 @@ const Community = () => {
         >
           Previous
         </button>
-        <p className="text-gray-600">
+        <p className="text-gray-600 text-sm sm:text-base">
           Page {currentPage} of {totalPages}
         </p>
         <button
