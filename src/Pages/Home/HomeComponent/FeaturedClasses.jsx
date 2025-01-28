@@ -31,7 +31,10 @@ const FeaturedClasses = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredClasses.map((classData, index) => (
-            <Card key={index} className="max-w-[24rem] overflow-hidden">
+            <Card
+              key={index}
+              className="max-w-[24rem] overflow-hidden flex flex-col justify-between"
+            >
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -41,11 +44,12 @@ const FeaturedClasses = () => {
                 <img
                   src={classData.image}
                   alt={classData.className}
+                  className="h-48 w-full object-cover"
                 />
               </CardHeader>
-              <CardBody>
-                <Typography variant="h4" color="blue-gray">
-                 {classData.className}
+              <CardBody className="h-[200px] flex flex-col justify-between">
+                <Typography variant="h4" color="blue-gray" className="font-semibold">
+                  {classData.className}
                 </Typography>
                 <Typography
                   variant="lead"
@@ -57,7 +61,7 @@ const FeaturedClasses = () => {
               </CardBody>
               <CardFooter className="flex items-center justify-between">
                 <Typography className="font-normal text-gray-700">
-                {classData.bookedCount} Booked
+                  {classData.bookedCount} Booked
                 </Typography>
               </CardFooter>
             </Card>

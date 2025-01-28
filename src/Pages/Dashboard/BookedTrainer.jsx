@@ -156,7 +156,7 @@ const BookedTrainer = () => {
           </button>
         </div>
       ) : (
-        <p>Loading trainer details...</p>
+        <p>There is no booking info</p>
       )}
 
       {showModal && (
