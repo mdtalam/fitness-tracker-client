@@ -10,24 +10,22 @@ import Spinner from "../../OthersComponent/Spinner";
 const Community = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [posts, setPosts] = useState([]); // State to hold posts with updated vote counts
+  const [posts, setPosts] = useState([]);
   const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuth();
 
-  // Fetch posts with TanStack Query
+  // Fetch posts with React Query
   const {
     data,
-    error,
     isLoading: dataLoading,
+    error,
     refetch,
   } = useQuery({
     queryKey: ["posts", currentPage],
     queryFn: async () => {
-      const response = await axiosSecure.get(
-        `/forum?page=${currentPage}&limit=6`
-      );
+      const response = await axiosSecure.get(`/forum?page=${currentPage}&limit=6`);
       setTotalPages(response.data.totalPages);
-      setPosts(response.data.posts); // Set posts into local state
+      setPosts(response.data.posts);
       return response.data.posts;
     },
   });
@@ -39,7 +37,7 @@ const Community = () => {
     }
   };
 
-  // Handle voting (upvote/downvote)
+  // Handle voting (upvote or downvote)
   const handleVote = async (postId, voteType) => {
     if (!user) {
       Swal.fire({
@@ -49,49 +47,47 @@ const Community = () => {
       });
       return;
     }
-
+  
     try {
       const endpoint = `/forum/${voteType}/${postId}`;
       const userId = user?._id;
-
-      // Optimistic UI Update: Update vote counts locally
+  
+      // Optimistic UI update
       const updatedPosts = posts.map((post) => {
         if (post._id === postId) {
-          if (voteType === "upvote") {
-            // Add userId to upvotes if not already present
-            if (!post.upvotes.includes(userId)) {
-              post.upvotes.push(userId);
-              post.upvoteCount += 1;
-            }
-          } else if (voteType === "downvote") {
-            // Add userId to downvotes if not already present
-            if (!post.downvotes.includes(userId)) {
-              post.downvotes.push(userId);
-              post.downvoteCount += 1;
-            }
+          if (voteType === "upvote" && !post.upvotes.includes(userId)) {
+            post.upvotes.push(userId);
+            post.downvotes = post.downvotes.filter((id) => id !== userId);
+            post.upvoteCount += 1;
+            post.downvoteCount -= post.downvoteCount > 0 ? 1 : 0;
+          } else if (voteType === "downvote" && !post.downvotes.includes(userId)) {
+            post.downvotes.push(userId);
+            post.upvotes = post.upvotes.filter((id) => id !== userId);
+            post.downvoteCount += 1;
+            post.upvoteCount -= post.upvoteCount > 0 ? 1 : 0;
           }
         }
         return post;
       });
-
-      setPosts(updatedPosts); // Update the posts in state
-
-      // Call API to persist vote
+      setPosts(updatedPosts);
+  
+      // Send vote to server
       await axiosSecure.put(endpoint, { userId });
-
-      // Refetch data after voting to sync with the server
+  
+      // Refetch posts to ensure consistency
       refetch();
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Something went wrong with your vote. Please try again later.",
+        text: error.response?.data?.message || "Something went wrong.",
       });
     }
   };
+  
 
   if (loading || dataLoading) return <Spinner />;
-  if (error) return <div>Error fetching posts.</div>;
+  if (error) return <div>Error loading posts.</div>;
 
   return (
     <div className="min-h-screen p-6 sm:p-8 bg-gray-50">
@@ -102,17 +98,16 @@ const Community = () => {
         Forum
       </h2>
 
-      {/* Post List */}
+      {/* Posts */}
       <div className="space-y-6">
         {posts.map((post) => (
           <div
             key={post._id}
             className="bg-white shadow-lg rounded-lg p-6 flex flex-col sm:flex-row space-x-0 sm:space-x-6 h-auto min-h-[300px]"
           >
-            {/* Cover Image and Text */}
             <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
               <img
-                src={post.image || "https://via.placeholder.com/150"} // Add default image if not available
+                src={post.image || "https://via.placeholder.com/150"}
                 alt="Cover"
                 className="w-full object-cover rounded-lg"
               />
@@ -124,26 +119,24 @@ const Community = () => {
                 </h3>
                 <p className="text-gray-600 mt-2">{post.classDetails}</p>
               </div>
-
               <div className="flex justify-between items-center mt-4">
-                {/* Role Badge */}
-                <p className="text-sm sm:text-base">{post?.userInfo?.role || "Unavailable"}</p>
-
-                {/* Voting Buttons on the right */}
+                <p className="text-sm sm:text-base">
+                  Posted By <span className="bg-primary p-1 px-2 rounded-xl">{post?.userInfo?.role || "Unavailable"}</span>
+                </p>
                 <div className="flex items-center space-x-2">
                   <button
                     className="flex items-center space-x-2 px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                     onClick={() => handleVote(post._id, "upvote")}
                   >
-                    <FaThumbsUp />{" "}
-                    <span>{post.upvoteCount ? post.upvoteCount : 0}</span> {/* Vote count */}
+                    <FaThumbsUp />
+                    <span>{post.upvoteCount || 0}</span>
                   </button>
                   <button
                     className="flex items-center space-x-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={() => handleVote(post._id, "downvote")}
                   >
-                    <FaThumbsDown />{" "}
-                    <span>{post.downvoteCount ? post.downvoteCount : 0}</span> {/* Vote count */}
+                    <FaThumbsDown />
+                    <span>{post.downvoteCount || 0}</span>
                   </button>
                 </div>
               </div>
