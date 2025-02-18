@@ -11,7 +11,7 @@ const UserProfile = () => {
   if (loading || isLoading) return <Spinner />;
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-10">
+    <div className="min-h-screen flex flex-col items-center py-10 mt-[74px]">
       <Helmet>
         <title>FitFusion | Profile</title>
       </Helmet>
@@ -31,7 +31,7 @@ const UserProfile = () => {
 
           {/* User Information */}
           <div className="text-center">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+            <h3 className="text-2xl capitalize font-semibold text-gray-800 mb-2">
               {user?.displayName || "User Name"}
             </h3>
             <p className="text-sm text-secondary bg-primary px-4 py-1 rounded-lg uppercase inline-block">

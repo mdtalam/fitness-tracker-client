@@ -20,7 +20,7 @@ const AllTrainer = () => {
     if(isLoading) return <Spinner></Spinner>
 
   return (
-    <div className="my-14">
+    <div className="my-14 mt-[130px]">
       <Helmet>
         <title>FitFusion | All Trainers</title>
       </Helmet>

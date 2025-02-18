@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 mt-[74px]">
       <Helmet>
         <title>FitFusion | Login</title>
       </Helmet>

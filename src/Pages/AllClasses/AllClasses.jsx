@@ -59,7 +59,7 @@ const AllClasses = () => {
   };
 
   return (
-    <div className="my-14">
+    <div className="my-14 mt-[130px]">
       <Helmet>
         <title>FitFusion | All Classes</title>
       </Helmet>

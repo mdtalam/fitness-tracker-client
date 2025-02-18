@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const Slider = () => {
   return (
-    <div className="w-full">
+    <div className="max-w-screen-2xl mx-auto">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation

@@ -90,7 +90,7 @@ const Community = () => {
   if (error) return <div>Error loading posts.</div>;
 
   return (
-    <div className="min-h-screen p-6 sm:p-8 bg-gray-50">
+    <div className="min-h-screen p-6 sm:p-8 bg-gray-50 mt-[74px]">
       <Helmet>
         <title>FitFusion | Community</title>
       </Helmet>
