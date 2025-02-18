@@ -94,12 +94,12 @@ const Community = () => {
       <Helmet>
         <title>FitFusion | Community</title>
       </Helmet>
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center sm:text-left">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center sm:text-left max-w-screen-2xl mx-auto">
         Forum
       </h2>
 
       {/* Posts */}
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-screen-2xl mx-auto">
         {posts.map((post) => (
           <div
             key={post._id}

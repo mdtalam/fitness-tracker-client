@@ -1,19 +1,19 @@
 import React from "react";
 import {
-    FaEnvelope,
-    FaFacebookF,
-    FaInstagram,
-    FaLinkedinIn,
-    FaMapMarkerAlt,
-    FaPhoneAlt,
-    FaTwitter,
+  FaEnvelope,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaTwitter,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="bg-primary text-secondary py-10">
-      <div className="px-4">
+      <div className="px-4 max-w-screen-2xl mx-auto">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Website Logo and About */}

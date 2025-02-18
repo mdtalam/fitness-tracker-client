@@ -5,8 +5,8 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        primary: '#A0D683',         // Teal
-        secondary: '#212121',       // Darker Teal
+        primary: '#5D8736',         // Teal
+        secondary: '#f4f4f9',       // Darker Teal
         complementary: '#ff7043',    // Orange
         background: '#f4f4f9',      // Light Gray
         text: '#333333',            // Dark Gray

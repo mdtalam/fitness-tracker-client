@@ -5,22 +5,39 @@ import {
   Navbar,
   Typography,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import avatarImg from "../../src/assets/avatar.jpg";
 import useAuth from "../Hooks/useAuth";
 
 const NavMenu = () => {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { user, logOut } = useAuth();
 
   const handleLogOut = () => {
     logOut()
       .then(() => {})
-      .then((error) => console.log(error));
+      .catch((error) => console.log(error));
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
@@ -35,8 +52,8 @@ const NavMenu = () => {
           className={({ isActive }) =>
             `flex items-center px-2 py-1 rounded ${
               isActive
-                ? "bg-secondary text-white"
-                : "text-secondary hover:text-white"
+                ? "bg-secondary text-primary"
+                : "text-secondary hover:underline hover:underline-offset-8"
             }`
           }
         >
@@ -49,8 +66,8 @@ const NavMenu = () => {
           className={({ isActive }) =>
             `flex items-center px-2 py-1 rounded ${
               isActive
-                ? "bg-secondary text-white"
-                : "text-secondary hover:text-white"
+                ? "bg-secondary text-primary"
+                : "text-secondary hover:underline hover:underline-offset-8"
             }`
           }
         >
@@ -63,8 +80,8 @@ const NavMenu = () => {
           className={({ isActive }) =>
             `flex items-center px-2 py-1 rounded ${
               isActive
-                ? "bg-secondary text-white"
-                : "text-secondary hover:text-white"
+                ? "bg-secondary text-primary"
+                : "text-secondary hover:underline hover:underline-offset-8"
             }`
           }
         >
@@ -77,53 +94,56 @@ const NavMenu = () => {
           className={({ isActive }) =>
             `flex items-center px-2 py-1 rounded ${
               isActive
-                ? "bg-secondary text-white"
-                : "text-secondary hover:text-white"
+                ? "bg-secondary text-primary"
+                : "text-secondary hover:underline hover:underline-offset-8"
             }`
           }
         >
           Community
         </NavLink>
       </Typography>
-      {
-        user && (<Typography as="li" variant="small" className="p-1 font-normal">
+      {user && (
+        <Typography as="li" variant="small" className="p-1 font-normal">
           <NavLink
             to="dashboard"
             className={({ isActive }) =>
               `flex items-center px-2 py-1 rounded ${
                 isActive
-                  ? "bg-secondary text-white"
-                  : "text-secondary hover:text-white"
+                  ? "bg-secondary text-primary"
+                  : "text-secondary hover:underline hover:underline-offset-8"
               }`
             }
           >
             Dashboard
           </NavLink>
-        </Typography>)
-      }
-      {
-        user && (<Typography as="li" variant="small" className="p-1 font-normal">
+        </Typography>
+      )}
+      {user && (
+        <Typography as="li" variant="small" className="p-1 font-normal">
           <NavLink
             to="profile"
             className={({ isActive }) =>
               `flex items-center px-2 py-1 rounded ${
                 isActive
-                  ? "bg-secondary text-white"
-                  : "text-secondary hover:text-white"
+                  ? "bg-secondary text-primary"
+                  : "text-secondary hover:underline hover:underline-offset-8"
               }`
             }
           >
             Profile
           </NavLink>
-        </Typography>)
-      }
-      
+        </Typography>
+      )}
     </ul>
   );
 
   return (
     <div>
-      <Navbar className="fixed opacity-90 top-0 z-10 h-max max-w-full rounded-none py-2 lg:px-8 lg:py-4 bg-primary">
+      <Navbar
+        className={`fixed top-0 z-10 h-max max-w-full border-none rounded-none py-2 lg:px-8 lg:py-4 bg-primary transition-opacity duration-300 ${
+          isScrolled ? "opacity-95" : "opacity-100"
+        }`}
+      >
         <div className="flex items-center justify-between max-w-screen-2xl mx-auto px-4">
           <Typography
             as="a"
@@ -149,7 +169,7 @@ const NavMenu = () => {
                   onClick={handleLogOut}
                   variant="text"
                   size="sm"
-                  className="hidden lg:inline-block bg-secondary text-white hover:text-black"
+                  className="hidden lg:inline-block bg-secondary text-primary hover:text-black"
                 >
                   Sign Out
                 </Button>
@@ -160,7 +180,7 @@ const NavMenu = () => {
                   <Button
                     variant="text"
                     size="sm"
-                    className="hidden lg:inline-block text-secondary bg-white hover:text-white"
+                    className="hidden lg:inline-block text-primary bg-white hover:text-white"
                   >
                     Log In
                   </Button>
@@ -169,7 +189,7 @@ const NavMenu = () => {
                   <Button
                     variant="text"
                     size="sm"
-                    className="hidden lg:inline-block bg-secondary text-white hover:text-black"
+                    className="hidden lg:inline-block bg-secondary text-primary hover:text-white"
                   >
                     Sign Up
                   </Button>

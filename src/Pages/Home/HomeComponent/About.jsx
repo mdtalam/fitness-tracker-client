@@ -22,7 +22,7 @@ const About = () => {
         </div>
 
         {/* Right: About Content */}
-        <div className="w-full md:w-1/2 text-center md:text-left">
+        <div className="w-full md:w-2/3 pr-20 text-center md:text-left">
           <h2 className="text-4xl font-bold text-gray-800 mb-4">
             About FitFusion
           </h2>

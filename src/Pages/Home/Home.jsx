@@ -17,7 +17,7 @@ const Home = () => {
                 FitFusion | Home
                 </title>
             </Helmet>
-            <section className="mt-[74px]">
+            <section className="mt-[72px]">
                 <Slider></Slider>
             </section>
             <section>
