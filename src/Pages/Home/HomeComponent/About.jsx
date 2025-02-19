@@ -40,7 +40,7 @@ const About = () => {
             endurance, or simply lead a more active lifestyle, FitFusion is here
             to guide you every step of the way.
           </p>
-          <button className="px-6 py-3 bg-primary text-white rounded-md hover:bg-secondary transition">
+          <button className="px-6 py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition">
             Learn More
           </button>
         </div>

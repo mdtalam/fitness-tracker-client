@@ -48,11 +48,11 @@ const TrainerDetails = () => {
   if (trainerError) return <div>No slots available.</div>;
 
   return (
-    <div>
+    <div className="bg-gray-100 mt-[72px]">
       <Helmet>
         <title>FitFusion | Trainer Details</title>
       </Helmet>
-      <div className="flex flex-col md:flex-row gap-10 bg-gray-100">
+      <div className="flex flex-col md:flex-row gap-10 max-w-screen-2xl mx-auto">
         {/* Trainer Info Section */}
         <div className="w-full md:w-2/3 mx-2 p-6 bg-white my-14 shadow-md rounded-lg">
           <div className="flex flex-col md:flex-row items-center gap-6">

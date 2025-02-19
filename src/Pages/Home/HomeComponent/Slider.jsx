@@ -34,7 +34,7 @@ const Slider = () => {
               </p>
               <Link
                 to="/all-classes"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary transition"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition"
               >
                 Explore Classes
               </Link>
@@ -59,7 +59,7 @@ const Slider = () => {
               </p>
               <Link
                 to="/all-classes"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary transition"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition"
               >
                 View Classes
               </Link>
@@ -84,7 +84,7 @@ const Slider = () => {
               </p>
               <Link
                 to="/all-classes"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary transition"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition"
               >
                 Browse Classes
               </Link>

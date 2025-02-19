@@ -15,7 +15,7 @@ const Payment = () => {
       <Helmet>
         <title>FitFusion | Payment</title>
       </Helmet>
-      <div className="max-w-4xl my-8 mx-auto bg-white p-8 rounded-lg shadow-xl">
+      <div className="max-w-4xl my-8 mx-auto bg-white p-8 rounded-lg shadow-xl mt-[130px]">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-6">
           Payment Information
         </h2>

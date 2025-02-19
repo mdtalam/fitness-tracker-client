@@ -61,7 +61,7 @@ const CommunityPost = () => {
       <div className="text-center mt-8">
         <Link
           to="community"
-          className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary"
+          className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary hover:text-primary"
         >
           View All Posts
         </Link>

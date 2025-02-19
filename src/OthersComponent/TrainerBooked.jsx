@@ -57,7 +57,7 @@ const TrainerBooked = () => {
         <title>FitFusion | Trainer Booked</title>
       </Helmet>
       {/* Trainer Info and Slot */}
-      <div className="trainer-info p-6 bg-white shadow-md rounded-lg mb-6 my-14">
+      <div className="trainer-info p-6 bg-white shadow-md rounded-lg mb-6 my-14 max-w-screen-2xl mx-auto mt-[130px]">
         <h2 className="text-3xl font-bold mb-4 capitalize">
           Trainer: {slot.trainerName}
         </h2>
@@ -70,7 +70,7 @@ const TrainerBooked = () => {
       </div>
 
       {/* Packages Section */}
-      <div className="packages bg-white p-6 shadow-md rounded-lg mb-6">
+      <div className="packages bg-white p-6 shadow-md rounded-lg mb-6 max-w-screen-2xl mx-auto">
         <h3 className="text-2xl font-bold mb-4">Choose Your Package</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {packages.map((pkg, index) => (
@@ -104,7 +104,7 @@ const TrainerBooked = () => {
                     packageName: pkg.name,
                     packagePrice: pkg.price, // Pass the integer price
                   }}
-                  className="bg-secondary text-white font-semibold text-lg px-6 py-3 rounded-full shadow-lg transform hover:text-secondary hover:bg-white hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out w-full text-center"
+                  className="bg-secondary text-primary font-semibold text-lg px-6 py-3 rounded-full shadow-lg transform hover:text-secondary hover:bg-primary hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out w-full text-center"
                 >
                   Join Now
                 </Link>
