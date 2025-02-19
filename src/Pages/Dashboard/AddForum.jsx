@@ -178,7 +178,7 @@ const AddForum = () => {
             <div className="flex space-x-4">
               <button
                 type="submit"
-                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary"
+                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary hover:text-primary"
               >
                 Make Post
               </button>

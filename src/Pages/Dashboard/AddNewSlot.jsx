@@ -110,7 +110,7 @@ const AddNewSlot = () => {
   if (!trainerData) return <Spinner></Spinner>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-secondary rounded-lg shadow-md">
+    <div className="max-w-3xl mx-auto p-6 my-14 bg-white text-black rounded-lg shadow-md">
       <Helmet>
         <title>Dashboard | Add New Slot</title>
       </Helmet>

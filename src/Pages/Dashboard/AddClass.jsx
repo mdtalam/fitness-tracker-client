@@ -154,7 +154,7 @@ const AddClass = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full bg-primary text-white font-medium py-2 px-4 rounded-md shadow hover:bg-secondary hover:text-primary focus:outline-none focus:ring focus:ring-blue-300"
           >
             Add Class
           </button>
