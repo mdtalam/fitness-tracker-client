@@ -1,12 +1,10 @@
 import { Bars3Icon, PowerIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import {
-  Chip,
   IconButton,
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Typography,
+  Typography
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
@@ -129,14 +127,6 @@ const DashboardLayout = () => {
                 >
                   Balance
                 </Link>
-                <ListItemSuffix>
-                  <Chip
-                    value="14"
-                    size="sm"
-                    color="blue-gray"
-                    className={`rounded-full ${open ? "block" : "hidden"}`}
-                  />
-                </ListItemSuffix>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>

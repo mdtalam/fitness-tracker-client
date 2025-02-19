@@ -60,7 +60,7 @@ const AppliedTrainer = () => {
                 <td className="px-4 py-2 text-sm text-gray-700">{trainer.status}</td>
                 <td className="px-4 py-2 text-sm">
                   <Link to={`/dashboard/trainer-details/${trainer._id}`} className="text-blue-500 hover:text-blue-700">
-                    <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary">
+                    <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary hover:text-primary">
                       View Details
                     </button>
                   </Link>
