@@ -90,34 +90,34 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
             <div className="flex gap-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/rafsan.tasnim/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white text-primary rounded-full hover:bg-secondary hover:text-white"
+                className="p-2 bg-white text-primary rounded-full hover:bg-primary hover:text-secondary"
               >
                 <FaFacebookF />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/mdtalambd"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white text-primary rounded-full hover:bg-secondary hover:text-white"
+                className="p-2 bg-white text-primary rounded-full hover:bg-primary hover:text-secondary"
               >
                 <FaTwitter />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/rafsantasnim/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white text-primary rounded-full hover:bg-secondary hover:text-white"
+                className="p-2 bg-white text-primary rounded-full hover:bg-primary hover:text-secondary"
               >
                 <FaInstagram />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/mdtalambd/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-white text-primary rounded-full hover:bg-secondary hover:text-white"
+                className="p-2 bg-white text-primary rounded-full hover:bg-primary hover:text-secondary"
               >
                 <FaLinkedinIn />
               </a>
