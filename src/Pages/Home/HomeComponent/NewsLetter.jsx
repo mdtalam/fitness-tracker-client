@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { InteractiveHoverButton } from "../../../components/magicui/interactive-hover-button";
+import { SparklesText } from "../../../components/magicui/sparkles-text";
 
 const NewsLetter = () => {
   const axiosPublic = useAxiosPublic();
@@ -48,7 +50,7 @@ const NewsLetter = () => {
 
         <div className="relative z-10 max-w-3xl mx-auto text-center text-white">
           {/* Title */}
-          <h2 className="text-4xl font-bold mb-4">Stay Updated!</h2>
+          <SparklesText text="Stay Updated!"></SparklesText>
           <p className="mb-8 text-lg">
             Subscribe to our newsletter and never miss any updates or offers.
           </p>
@@ -81,12 +83,13 @@ const NewsLetter = () => {
             />
 
             {/* Subscribe Button */}
-            <button
-              type="submit"
-              className="bg-primary hover:bg-teal-600 px-6 py-3 text-white font-semibold rounded-lg transition duration-300"
-            >
-              Subscribe Now
-            </button>
+            <InteractiveHoverButton className="px-6 py-3 text-black font-semibold rounded-lg transition duration-300">
+              <button
+                type="submit"  
+              >
+                Subscribe Now
+              </button>
+            </InteractiveHoverButton>
           </form>
         </div>
       </section>

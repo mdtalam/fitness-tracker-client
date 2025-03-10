@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import avatarImg from "../../src/assets/avatar.jpg";
 import useAuth from "../Hooks/useAuth";
+import { BorderBeam } from "../components/magicui/border-beam";
 
 const NavMenu = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -180,18 +181,24 @@ const NavMenu = () => {
                   <Button
                     variant="text"
                     size="sm"
-                    className="hidden lg:inline-block text-primary bg-white hover:text-white"
+                    className="relative overflow-hidden hidden lg:inline-block text-primary bg-white hover:text-white"
                   >
                     Log In
+                    <BorderBeam
+                      duration={8} size={40}
+                    />
                   </Button>
                 </Link>
                 <Link to="/sign-up">
                   <Button
                     variant="text"
                     size="sm"
-                    className="hidden lg:inline-block bg-secondary text-primary hover:text-white"
+                    className="relative overflow-hidden hidden lg:inline-block bg-secondary text-primary hover:text-white"
                   >
                     Sign Up
+                    <BorderBeam
+                      duration={8} size={40} reverse
+                    />
                   </Button>
                 </Link>
               </div>

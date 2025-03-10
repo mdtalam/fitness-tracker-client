@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ShimmerButton } from "../../../components/magicui/shimmer-button";
 
 const Slider = () => {
   return (
@@ -30,14 +31,20 @@ const Slider = () => {
                 Achieve Your Fitness Goals
               </h1>
               <p className="text-sm sm:text-base lg:text-lg mb-6">
-                Join our expert-led classes and start your journey toward a healthier you.
+                Join our expert-led classes and start your journey toward a
+                healthier you.
               </p>
-              <Link
-                to="/all-classes"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition"
-              >
-                Explore Classes
-              </Link>
+
+              <div className="flex justify-center">
+                <ShimmerButton className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition">
+                  <Link
+                    className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg"
+                    to="/all-classes"
+                  >
+                    Explore Classes
+                  </Link>
+                </ShimmerButton>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -57,12 +64,16 @@ const Slider = () => {
               <p className="text-sm sm:text-base lg:text-lg mb-6">
                 Discover the perfect class for your fitness level and goals.
               </p>
-              <Link
-                to="/all-classes"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition"
-              >
-                View Classes
-              </Link>
+              <div className="flex justify-center">
+                <ShimmerButton className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition">
+                  <Link
+                    className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg"
+                    to="/all-classes"
+                  >
+                    View Classes
+                  </Link>
+                </ShimmerButton>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -80,14 +91,19 @@ const Slider = () => {
                 Join the FitFusion Community
               </h1>
               <p className="text-sm sm:text-base lg:text-lg mb-6">
-                Train with top-notch trainers and become a part of a thriving fitness family.
+                Train with top-notch trainers and become a part of a thriving
+                fitness family.
               </p>
-              <Link
-                to="/all-classes"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition"
-              >
-                Browse Classes
-              </Link>
+              <div className="flex justify-center">
+                <ShimmerButton className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition">
+                  <Link
+                    className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg"
+                    to="/all-classes"
+                  >
+                    Explore Classes
+                  </Link>
+                </ShimmerButton>
+              </div>
             </div>
           </div>
         </SwiperSlide>

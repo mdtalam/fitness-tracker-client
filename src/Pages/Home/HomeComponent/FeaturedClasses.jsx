@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import SectionTitle from "../../../Shared/SectionTitle";
 
 const FeaturedClasses = () => {
   const axiosPublic = useAxiosPublic();
@@ -26,14 +27,17 @@ const FeaturedClasses = () => {
   return (
     <div className="bg-gray-100 py-14">
       <div className="container mx-auto md:pl-8">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-          Featured Classes
-        </h2>
+        <SectionTitle
+        title={"Featured Classes"}
+        subTitle={
+          "FitFusion offers expert-led, dynamic fitness classes for all levels to achieve health goals."
+        }
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredClasses.map((classData, index) => (
             <Card
               key={index}
-              className="max-w-[24rem] overflow-hidden flex flex-col justify-between"
+              className="max-w-[24rem] overflow-hidden flex flex-col justify-between"             
             >
               <CardHeader
                 floated={false}

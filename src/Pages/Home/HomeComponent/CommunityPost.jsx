@@ -4,6 +4,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Spinner from "../../../OthersComponent/Spinner";
+import SectionTitle from "../../../Shared/SectionTitle";
+import { ShimmerButton } from "../../../components/magicui/shimmer-button";
 
 
 
@@ -25,7 +27,10 @@ const CommunityPost = () => {
 
   return (
     <div className="my-14 max-w-screen-2xl mx-auto">
-      <h2 className="text-2xl font-bold text-center mb-6">Latest Community Posts</h2>
+      <SectionTitle title={"Latest Community Posts"}
+          subTitle={
+            "Stay updated with the latest fitness tips, success stories, and community highlights from FitFusion!"
+          } />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post) => (
           <div
@@ -58,13 +63,15 @@ const CommunityPost = () => {
           </div>
         ))}
       </div>
-      <div className="text-center mt-8">
+      <div className="text-center mt-8 flex justify-center">
+        <ShimmerButton className="px-6 py-2 bg-primary text-white rounded-lg">
         <Link
           to="community"
-          className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary hover:text-primary"
+          className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg"
         >
           View All Posts
         </Link>
+        </ShimmerButton>
       </div>
     </div>
   );

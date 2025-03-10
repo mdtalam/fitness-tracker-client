@@ -1,6 +1,7 @@
 import React from "react";
 import SectionTitle from "../../../Shared/SectionTitle";
 import aboutImg from '../../../assets/about.jpg';
+import { ShimmerButton } from "../../../components/magicui/shimmer-button";
 
 const About = () => {
   return (
@@ -40,9 +41,11 @@ const About = () => {
             endurance, or simply lead a more active lifestyle, FitFusion is here
             to guide you every step of the way.
           </p>
-          <button className="px-6 py-3 bg-primary text-white rounded-md hover:bg-secondary hover:text-primary transition">
+          <ShimmerButton className="px-6 py-3 bg-primary text-white rounded-md transition">
+          <button className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
             Learn More
           </button>
+          </ShimmerButton>
         </div>
       </div>
     </section>
