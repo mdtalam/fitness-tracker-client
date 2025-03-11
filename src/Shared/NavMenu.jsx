@@ -260,8 +260,9 @@ const NavMenu = () => {
                   onClick={handleLogOut}
                   variant="text"
                   size="sm"
-                  className="bg-secondary text-white hover:text-black"
+                  className="relative overflow-hidden bg-secondary text-white hover:text-black"
                 >
+                  
                   Sign Out
                 </Button>
               </div>
@@ -274,9 +275,12 @@ const NavMenu = () => {
                     fullWidth
                     variant="text"
                     size="sm"
-                    className="text-secondary bg-white hover:text-white"
+                    className="relative overflow-hidden text-primary bg-white hover:text-white"
                   >
                     <span>Log In</span>
+                    <BorderBeam
+                      duration={8} size={40}
+                    />
                   </Button>
                 </Link>
                 <Link to="/sign-up">
@@ -284,9 +288,12 @@ const NavMenu = () => {
                     fullWidth
                     variant="gradient"
                     size="sm"
-                    className="bg-secondary text-white hover:text-black"
+                    className="relative overflow-hidden bg-secondary text-primary hover:text-white"
                   >
                     <span>Sign Up</span>
+                    <BorderBeam
+                      duration={8} size={40} reverse
+                    />
                   </Button>
                 </Link>
               </div>
