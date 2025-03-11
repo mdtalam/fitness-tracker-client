@@ -64,7 +64,12 @@ const AllClasses = () => {
         <title>FitFusion | All Classes</title>
       </Helmet>
       <div>
-        <SectionTitle title="All Classes" />
+        <SectionTitle 
+        title="All Classes" 
+        subTitle={
+          "FitFusion offers expert-led, dynamic fitness classes for all levels to achieve health goals."
+        }
+        />
       </div>
 
       {/* Search Bar */}

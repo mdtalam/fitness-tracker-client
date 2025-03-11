@@ -38,7 +38,11 @@ const AllTrainer = () => {
       <Helmet>
         <title>FitFusion | All Trainers</title>
       </Helmet>
-      <SectionTitle title={"All Trainers"}></SectionTitle>
+      <SectionTitle 
+      title={"All Trainers"} 
+      subTitle={
+          "Meet our expert trainers at FitFusion—dedicated professionals ready to guide you on your fitness journey!"
+        }></SectionTitle>
 
       {/* Sorting Dropdown */}
       <div className="px-6 mb-8 flex justify-end">

@@ -1,5 +1,5 @@
-
-import React from "react";
+import "animate.css";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FaAward,
   FaCalendarAlt,
@@ -14,6 +14,35 @@ import SectionTitle from "../../../Shared/SectionTitle";
 import { BorderBeam } from "../../../components/magicui/border-beam";
 
 const Featured = () => {
+  const featuresRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(false); // Remove animation class
+            setTimeout(() => {
+              setIsVisible(true); // Reapply animation class
+            }, 100); // Small delay to restart animation
+          }
+        });
+      },
+      { threshold: 0.2 } // Trigger when 20% of section is visible
+    );
+
+    if (featuresRef.current) {
+      observer.observe(featuresRef.current);
+    }
+
+    return () => {
+      if (featuresRef.current) {
+        observer.unobserve(featuresRef.current);
+      }
+    };
+  }, []);
+
   const features = [
     {
       icon: <FaDumbbell size={40} className="text-primary" />,
@@ -66,7 +95,7 @@ const Featured = () => {
   ];
 
   return (
-    <div className="bg-gray-100 pt-14">
+    <div ref={featuresRef} className="bg-gray-100 pt-14">
       <div className="container mx-auto px-4">
         {/* 🔹 Section Title */}
         <SectionTitle
@@ -77,7 +106,11 @@ const Featured = () => {
         />
 
         {/* 🔹 Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 h-full items-stretch">
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 h-full items-stretch transition-all duration-700 ${
+            isVisible ? "animate__animated animate__zoomIn" : "opacity-0"
+          }`}
+        >
           {features.map((feature, index) => (
             <div key={index} className="relative overflow-hidden h-full flex rounded-md">
               {/* 🔹 Border Effects */}

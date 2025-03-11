@@ -1,18 +1,50 @@
-import React from "react";
+import "animate.css";
+import React, { useEffect, useRef, useState } from "react";
 import SectionTitle from "../../../Shared/SectionTitle";
-import aboutImg from '../../../assets/about.jpg';
+import aboutImg from "../../../assets/about.jpg";
 import { ShimmerButton } from "../../../components/magicui/shimmer-button";
 
 const About = () => {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(false); // Remove animation class
+            setTimeout(() => {
+              setIsVisible(true); // Reapply animation class
+            }, 100);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
   return (
-    <section className="bg-gray-100 pt-14">
+    <section className="bg-gray-100 pt-14" ref={sectionRef}>
       <SectionTitle
         title={"About Us"}
         subTitle={
           "Empowering You to Achieve Your Fitness Goals with Expertise, Support, and Innovation"
         }
       ></SectionTitle>
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
+      <div
+        className={`container mx-auto px-4 flex flex-col md:flex-row items-center gap-8 bg-gray-100 pt-14 transition-all duration-700 ${
+          isVisible ? "animate__animated animate__zoomIn" : "opacity-0"
+        }`}
+      >
         {/* Left: Image */}
         <div className="w-full h-[500px] md:w-1/2">
           <img
@@ -42,9 +74,9 @@ const About = () => {
             to guide you every step of the way.
           </p>
           <ShimmerButton className="px-6 py-3 bg-primary text-white rounded-md transition">
-          <button className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-            Learn More
-          </button>
+            <button className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+              Learn More
+            </button>
           </ShimmerButton>
         </div>
       </div>

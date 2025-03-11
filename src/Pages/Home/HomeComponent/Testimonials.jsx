@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { TextAnimate } from "../../../components/magicui/text-animate";
 
 const Testimonials = () => {
   const swiperRef = useRef(null);
@@ -42,8 +43,17 @@ const Testimonials = () => {
     <div className="bg-primary text-white py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className='text-3xl font-bold text-center text-white mb-4'>Don’t just take our word for it</h1>
-          <p className='text-lg text-center text-white mb-8'>Witness it first hand, directly from our lovely customers.</p>
+          <TextAnimate
+            animation="slideLeft"
+            by="character"
+            className="text-3xl font-bold text-center text-white mb-4"
+          >
+            Don’t just take our word for it
+          </TextAnimate>
+          <TextAnimate animation="slideRight"
+            by="character" className="text-lg text-center text-white mb-8">
+            Witness it first hand, directly from our lovely customers.
+          </TextAnimate>
         </div>
         {/* Swiper with autoplay and custom navigation */}
         <div className="relative">
